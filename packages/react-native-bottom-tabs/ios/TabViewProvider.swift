@@ -13,7 +13,19 @@ public final class TabInfo: NSObject {
   public let testID: String?
   public let role: TabBarRole?
   public let preventsDefault: Bool
-
+  
+  public let avatarUri: String?
+  public let avatarInitials: String?
+  public let avatarBackgroundColor: String?
+  public let avatarSize: CGFloat
+  public let avatarStrokeColor: String?
+  public let avatarStrokeGap: CGFloat
+  public let avatarStrokeWidth: CGFloat
+  
+  public var isAvatar: Bool {
+    avatarUri != nil || avatarInitials != nil
+  }
+  
   public init(
     key: String,
     title: String,
@@ -23,7 +35,14 @@ public final class TabInfo: NSObject {
     hidden: Bool,
     testID: String?,
     role: String?,
-    preventsDefault: Bool = false
+    preventsDefault: Bool = false,
+    avatarUri: String? = nil,
+    avatarInitials: String? = nil,
+    avatarBackgroundColor: String? = nil,
+    avatarSize: CGFloat = 26,
+    avatarStrokeColor: String? = nil,
+    avatarStrokeGap: CGFloat = 1,
+    avatarStrokeWidth: CGFloat = 1
   ) {
     self.key = key
     self.title = title
@@ -34,6 +53,13 @@ public final class TabInfo: NSObject {
     self.testID = testID
     self.role = TabBarRole(rawValue: role ?? "")
     self.preventsDefault = preventsDefault
+    self.avatarUri = avatarUri
+    self.avatarInitials = avatarInitials
+    self.avatarBackgroundColor = avatarBackgroundColor
+    self.avatarSize = avatarSize
+    self.avatarStrokeColor = avatarStrokeColor
+    self.avatarStrokeGap = avatarStrokeGap
+    self.avatarStrokeWidth = avatarStrokeWidth
     super.init()
   }
 }
@@ -52,49 +78,49 @@ public final class TabInfo: NSObject {
   private var hostingController: PlatformHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
   private var iconSize = CGSize(width: 27, height: 27)
-
+  
   @objc var onPageSelected: RCTDirectEventBlock?
-
+  
   @objc var onTabLongPress: RCTDirectEventBlock?
   @objc var onTabBarMeasured: RCTDirectEventBlock?
   @objc var onNativeLayout: RCTDirectEventBlock?
-
+  
   @objc public var icons: NSArray? {
     didSet {
       loadIcons(icons)
     }
   }
-
+  
   @objc public var sidebarAdaptable: Bool = false {
     didSet {
       props.sidebarAdaptable = sidebarAdaptable
     }
   }
-
+  
   @objc public var disablePageAnimations: Bool = false {
     didSet {
       props.disablePageAnimations = disablePageAnimations
     }
   }
-
+  
   @objc public var labeled: Bool = false {
     didSet {
       props.labeled = labeled
     }
   }
-
+  
   @objc public var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
     }
   }
-
+  
   @objc public var hapticFeedbackEnabled: Bool = false {
     didSet {
       props.hapticFeedbackEnabled = hapticFeedbackEnabled
     }
   }
-
+  
   @objc public var layoutDirection: NSString? {
     didSet {
       props.layoutDirection = layoutDirection as? String
@@ -105,81 +131,81 @@ public final class TabInfo: NSObject {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
-
+  
   @objc public var minimizeBehavior: NSString? {
     didSet {
       props.minimizeBehavior = MinimizeBehavior(rawValue: minimizeBehavior as? String ?? "")
     }
   }
-
+  
   @objc public var translucent: Bool = true {
     didSet {
       props.translucent = translucent
     }
   }
-
+  
   @objc public var barTintColor: PlatformColor? {
     didSet {
       props.barTintColor = barTintColor
     }
   }
-
+  
   @objc public var activeTintColor: PlatformColor? {
     didSet {
       props.activeTintColor = activeTintColor
     }
   }
-
+  
   @objc public var inactiveTintColor: PlatformColor? {
     didSet {
       props.inactiveTintColor = inactiveTintColor
     }
   }
-
+  
   @objc public var fontFamily: NSString? {
     didSet {
       props.fontFamily = fontFamily as? String
     }
   }
-
+  
   @objc public var fontWeight: NSString? {
     didSet {
       props.fontWeight = fontWeight as? String
     }
   }
-
+  
   @objc public var fontSize: NSNumber? {
     didSet {
       props.fontSize = fontSize as? Int
     }
   }
-
+  
   @objc public var tabBarHidden: Bool = false {
     didSet {
       props.tabBarHidden = tabBarHidden
     }
   }
-
+  
   @objc public var itemsData: [TabInfo] = [] {
     didSet {
       props.items = itemsData
     }
   }
-
+  
   @objc public convenience init(delegate: TabViewProviderDelegate) {
     self.init()
     self.delegate = delegate
   }
-
+  
   @objc public func setImageLoader(_ imageLoader: RCTImageLoader) {
     self.imageLoader = imageLoader
     loadIcons(icons)
   }
-
+  
   override public func didUpdateReactSubviews() {
     props.children = reactSubviews().map(IdentifiablePlatformView.init)
   }
-
+  
 #if os(macOS)
   override public func layout() {
     super.layout()
@@ -191,12 +217,12 @@ public final class TabInfo: NSObject {
     setupView()
   }
 #endif
-
+  
   private func setupView() {
     if self.hostingController != nil {
       return
     }
-
+    
     self.hostingController = PlatformHostingController(rootView: TabViewImpl(props: props) { key in
       self.delegate?.onPageSelected(key: key, reactTag: self.reactTag)
     } onLongPress: { key in
@@ -206,7 +232,7 @@ public final class TabInfo: NSObject {
     } onTabBarMeasured: { height in
       self.delegate?.onTabBarMeasured(height: height, reactTag: self.reactTag)
     })
-
+    
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
 #if !os(macOS)
@@ -220,7 +246,7 @@ public final class TabInfo: NSObject {
 #endif
     }
   }
-
+  
   @objc(insertChild:atIndex:)
   public func insertChild(_ child: PlatformView, at index: Int) {
     guard index >= 0 && index <= props.children.count else {
@@ -228,7 +254,7 @@ public final class TabInfo: NSObject {
     }
     props.children.insert(IdentifiablePlatformView(child), at: index)
   }
-
+  
   @objc(removeChildAtIndex:)
   public func removeChild(at index: Int) {
     guard index >= 0 && index < props.children.count else {
@@ -236,10 +262,10 @@ public final class TabInfo: NSObject {
     }
     props.children.remove(at: index)
   }
-
+  
   private func loadIcons(_ icons: NSArray?) {
     guard let imageLoader else { return }
-
+    
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
     if let imageSources = icons as? [RCTImageSource?] {
@@ -258,10 +284,19 @@ public final class TabInfo: NSObject {
               print("[TabView] Error loading image: \(error!.localizedDescription)")
               return
             }
+            
             guard let image else { return }
+            
             DispatchQueue.main.async { [weak self] in
               guard let self else { return }
-              props.icons[index] = image.resizeImageTo(size: iconSize)
+              
+              let tabData = props.items[safe: index]
+              
+              if tabData?.isAvatar == true {
+                props.icons[index] = image
+              } else {
+                props.icons[index] = image.resizeImageTo(size: iconSize)
+              }
             }
           })
       }

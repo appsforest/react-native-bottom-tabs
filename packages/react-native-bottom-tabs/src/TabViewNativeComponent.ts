@@ -1,4 +1,4 @@
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import { codegenNativeComponent } from 'react-native';
 import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
 import type {
   DirectEventHandler,
@@ -7,7 +7,7 @@ import type {
   WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
-import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
+import type { ImageSource } from 'react-native';
 
 export type OnPageSelectedEventData = Readonly<{
   key: string;
@@ -34,6 +34,13 @@ export type TabViewItems = ReadonlyArray<{
   testID?: string;
   role?: string;
   preventsDefault?: boolean;
+  avatarUri?: string;
+  avatarInitials?: string;
+  avatarBackgroundColor?: string;
+  avatarSize?: Double;
+  avatarStrokeColor?: string;
+  avatarStrokeGap?: Double;
+  avatarStrokeWidth?: Double;
 }>;
 
 export interface TabViewProps extends ViewProps {

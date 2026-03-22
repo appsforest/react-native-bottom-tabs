@@ -37,6 +37,7 @@ import NativeBottomTabsCustomTabBar from './Examples/NativeBottomTabsCustomTabBa
 import NativeBottomTabsFreezeOnBlur from './Examples/NativeBottomTabsFreezeOnBlur';
 import BottomAccessoryView from './Examples/BottomAccessoryView';
 import { useLogger } from '@react-navigation/devtools';
+import NativeBottomTabsAvatar from './Examples/NativeBottomTabsAvatar';
 
 const HiddenTab = () => {
   return <FourTabs hideOneTab />;
@@ -78,6 +79,7 @@ const FourTabsRightToLeft = () => {
 };
 
 const examples = [
+  { component: NativeBottomTabsAvatar, name: 'Native Bottom Tabs with Avatar' },
   {
     component: ThreeTabs,
     name: 'Three Tabs',
@@ -221,11 +223,10 @@ export default function Navigation() {
                   onPress={() =>
                     Alert.alert(
                       'Alert',
-                      `Do you want to change to the ${
-                        mode === 'js' ? 'native stack' : 'js stack'
+                      `Do you want to change to the ${mode === 'js' ? 'native stack' : 'js stack'
                       } ?`,
                       [
-                        { text: 'No', onPress: () => {} },
+                        { text: 'No', onPress: () => { } },
                         {
                           text: 'Yes',
                           onPress: () => {

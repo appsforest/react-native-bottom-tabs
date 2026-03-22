@@ -24,6 +24,7 @@ import NativeTabView from './TabViewNativeComponent';
 import useLatestCallback from 'use-latest-callback';
 import type {
   AppleIcon,
+  AvatarIcon,
   BaseRoute,
   LayoutDirection,
   NavigationState,
@@ -37,6 +38,9 @@ import {
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon?.sfSymbol;
+
+const isAvatarIcon = (icon: any): icon is AvatarIcon =>
+  icon?.avatar !== undefined;
 
 interface Props<Route extends BaseRoute> {
   /*
@@ -135,7 +139,7 @@ interface Props<Route extends BaseRoute> {
   getIcon?: (props: {
     route: Route;
     focused: boolean;
-  }) => ImageSource | AppleIcon | undefined | null;
+  }) => ImageSource | AppleIcon | AvatarIcon | undefined | null;
 
   /**
    * Get hidden for the tab, uses `route.hidden` by default.
@@ -300,6 +304,7 @@ const TabView = <Route extends BaseRoute>({
       trimmedRoutes.map((route, index) => {
         const icon = icons[index];
         const isSfSymbol = isAppleSymbol(icon);
+        const isAvatar = isAvatarIcon(icon);
 
         if (Platform.OS === 'android' && isSfSymbol) {
           console.warn(
@@ -321,6 +326,17 @@ const TabView = <Route extends BaseRoute>({
           testID: getTestID?.({ route }),
           role: getRole?.({ route }),
           preventsDefault: getPreventsDefault?.({ route }),
+          avatarUri: isAvatar ? (icon.avatar.uri ?? '') : undefined,
+          avatarInitials: isAvatar ? icon.avatar.initials : undefined,
+          avatarBackgroundColor: isAvatar
+            ? icon.avatar.backgroundColor
+            : undefined,
+          avatarSize: isAvatar ? (icon.avatar.size ?? 26) : undefined,
+          avatarStrokeColor: isAvatar ? icon.avatar.strokeColor : undefined,
+          avatarStrokeGap: isAvatar ? (icon.avatar.strokeGap ?? 1) : undefined,
+          avatarStrokeWidth: isAvatar
+            ? (icon.avatar.strokeWidth ?? 1)
+            : undefined,
         };
       }),
     [
@@ -340,13 +356,18 @@ const TabView = <Route extends BaseRoute>({
 
   const resolvedIconAssets: ImageSource[] = React.useMemo(
     () =>
-      // Pass empty object for icons that are not provided to avoid index mismatch on native side.
-      icons.map((icon) =>
-        icon && !isAppleSymbol(icon)
-          ? // @ts-expect-error: TODO: Migrate of deep imports
-            Image.resolveAssetSource(icon)
-          : { uri: '' }
-      ),
+      icons.map((icon) => {
+        if (!icon || isAppleSymbol(icon)) {
+          return { uri: '' };
+        }
+
+        if (isAvatarIcon(icon)) {
+          return { uri: icon.avatar.uri ?? '' };
+        }
+
+        // @ts-expect-error: TODO: Migrate of deep imports
+        return Image.resolveAssetSource(icon);
+      }),
     [icons]
   );
 
