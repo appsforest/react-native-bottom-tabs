@@ -52,7 +52,7 @@
   },
   "homepage": "https://github.com/callstackincubator/react-native-bottom-tabs#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   },
   "devDependencies": {
