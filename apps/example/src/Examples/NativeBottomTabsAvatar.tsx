@@ -60,7 +60,12 @@ function NativeBottomTabsAvatar() {
         name="Albums"
         component={Albums}
         options={{
-          tabBarIcon: () => require('../../assets/icons/grid_dark.png'),
+          tabBarIconRenderingMode: 'alwaysOriginal',
+          tabBarIcon: () => ({
+            uri: require('../../assets/avatar-1.png'),
+            width: 20,
+            height: 20,
+          }),
         }}
       />
       <Tab.Screen

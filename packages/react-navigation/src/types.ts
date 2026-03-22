@@ -12,6 +12,7 @@ import type TabView from '@appsforest/react-native-bottom-tabs';
 import type {
   AppleIcon,
   AvatarIcon,
+  IconRenderingMode,
   TabRole,
 } from '@appsforest/react-native-bottom-tabs';
 
@@ -126,6 +127,8 @@ export type NativeBottomTabNavigationOptions = {
    * Whether to prevent default action of the tab. Defaults to `false`.
    */
   preventsDefault?: boolean;
+
+  tabBarIconRenderingMode?: IconRenderingMode;
 
   tabBarLabelVisible?: boolean;
 };

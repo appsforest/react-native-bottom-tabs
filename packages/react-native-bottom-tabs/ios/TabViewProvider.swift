@@ -13,6 +13,7 @@ public final class TabInfo: NSObject {
   public let testID: String?
   public let role: TabBarRole?
   public let preventsDefault: Bool
+  public let iconRenderingMode: String?
 
   public let avatarUri: String?
   public let avatarInitials: String?
@@ -36,6 +37,7 @@ public final class TabInfo: NSObject {
     testID: String?,
     role: String?,
     preventsDefault: Bool = false,
+    iconRenderingMode: String? = nil,
     avatarUri: String? = nil,
     avatarInitials: String? = nil,
     avatarBackgroundColor: String? = nil,
@@ -53,6 +55,7 @@ public final class TabInfo: NSObject {
     self.testID = testID
     self.role = TabBarRole(rawValue: role ?? "")
     self.preventsDefault = preventsDefault
+    self.iconRenderingMode = iconRenderingMode
     self.avatarUri = avatarUri
     self.avatarInitials = avatarInitials
     self.avatarBackgroundColor = avatarBackgroundColor
@@ -290,13 +293,20 @@ public final class TabInfo: NSObject {
               guard let self else { return }
               
               let tabData = props.items[safe: index]
+              let renderingMode: UIImage.RenderingMode
               
+              switch tabData?.iconRenderingMode {
+              case "alwaysOriginal": renderingMode = .alwaysOriginal
+              case "alwaysTemplate": renderingMode = .alwaysTemplate
+              default: renderingMode = .automatic
+              }
+
               if tabData?.isAvatar == true {
                 props.icons[index] = image
               } else if imageSource.size.width > 0 && imageSource.size.height > 0 {
-                props.icons[index] = image.resizeImageTo(size: imageSource.size)
+                props.icons[index] = image.resizeImageTo(size: imageSource.size, renderingMode: renderingMode)
               } else {
-                props.icons[index] = image.resizeImageTo(size: CGSize(width: 26, height: 26))
+                props.icons[index] = image.resizeImageTo(size: CGSize(width: 26, height: 26), renderingMode: renderingMode)
               }
             }
           })

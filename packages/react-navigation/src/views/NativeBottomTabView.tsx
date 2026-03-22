@@ -93,6 +93,9 @@ export default function NativeBottomTabView({
       getPreventsDefault={({ route }) =>
         descriptors[route.key]?.options.preventsDefault
       }
+      getIconRenderingMode={({ route }) =>
+        descriptors[route.key]?.options.tabBarIconRenderingMode
+      }
       onIndexChange={(index) => {
         const focused = index === state.index;
         const route = state.routes[index];

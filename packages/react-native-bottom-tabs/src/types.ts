@@ -1,6 +1,11 @@
 import type { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 import type { SFSymbol } from 'sf-symbols-typescript';
 
+export type IconRenderingMode =
+  | 'automatic'
+  | 'alwaysOriginal'
+  | 'alwaysTemplate';
+
 export type IconSource = string | ImageSourcePropType;
 
 export type AppleIcon = { sfSymbol: SFSymbol };
@@ -69,6 +74,7 @@ export type BaseRoute = {
   freezeOnBlur?: boolean;
   style?: StyleProp<ViewStyle>;
   preventsDefault?: boolean;
+  iconRenderingMode?: IconRenderingMode;
 };
 
 export type NavigationState<Route extends BaseRoute> = {

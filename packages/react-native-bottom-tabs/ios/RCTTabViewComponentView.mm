@@ -203,6 +203,7 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
                                          testID:RCTNSStringFromStringNilIfEmpty(item.testID)
                                            role:RCTNSStringFromStringNilIfEmpty(item.role)
                                 preventsDefault:item.preventsDefault
+                              iconRenderingMode:RCTNSStringFromStringNilIfEmpty(item.iconRenderingMode)
                                       avatarUri:RCTNSStringFromStringNilIfEmpty(item.avatarUri)
                                  avatarInitials:RCTNSStringFromStringNilIfEmpty(item.avatarInitials)
                           avatarBackgroundColor:RCTNSStringFromStringNilIfEmpty(item.avatarBackgroundColor)

@@ -26,6 +26,7 @@ import type {
   AppleIcon,
   AvatarIcon,
   BaseRoute,
+  IconRenderingMode,
   LayoutDirection,
   NavigationState,
   TabRole,
@@ -133,6 +134,12 @@ interface Props<Route extends BaseRoute> {
    * Determines whether the tab prevents default action (switching tabs) on press, uses `route.preventsDefault` by default.
    */
   getPreventsDefault?: (props: { route: Route }) => boolean | undefined;
+
+  /** Uses `automatic` by default. */
+  getIconRenderingMode?: (props: {
+    route: Route;
+  }) => IconRenderingMode | undefined;
+
   /**
    * Get icon for the tab, uses `route.focusedIcon` by default.
    */
@@ -246,6 +253,8 @@ const TabView = <Route extends BaseRoute>({
   getRole = ({ route }: { route: Route }) => route.role,
   getSceneStyle = ({ route }: { route: Route }) => route.style,
   getPreventsDefault = ({ route }: { route: Route }) => route.preventsDefault,
+  getIconRenderingMode = ({ route }: { route: Route }) =>
+    route.iconRenderingMode,
   hapticFeedbackEnabled = false,
   // Android's native behavior is to show labels when there are less than 4 tabs. We leave it as undefined to use the platform default behavior.
   labeled = Platform.OS !== 'android' ? true : undefined,
@@ -326,6 +335,7 @@ const TabView = <Route extends BaseRoute>({
           testID: getTestID?.({ route }),
           role: getRole?.({ route }),
           preventsDefault: getPreventsDefault?.({ route }),
+          iconRenderingMode: getIconRenderingMode?.({ route }),
           avatarUri: isAvatar ? (icon.avatar.uri ?? '') : undefined,
           avatarInitials: isAvatar ? icon.avatar.initials : undefined,
           avatarBackgroundColor: isAvatar
@@ -351,6 +361,7 @@ const TabView = <Route extends BaseRoute>({
       getTestID,
       getRole,
       getPreventsDefault,
+      getIconRenderingMode,
     ]
   );
 

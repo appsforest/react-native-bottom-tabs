@@ -35,7 +35,7 @@ extension PlatformView {
 }
 
 extension PlatformImage {
-  func resizeImageTo(size: CGSize) -> PlatformImage? {
+  func resizeImageTo(size: CGSize, renderingMode: UIImage.RenderingMode = .automatic) -> PlatformImage? {
 #if os(macOS)
     return NSImage(size: size, flipped: false) { rect -> Bool in
       self.draw(in: rect,
@@ -48,7 +48,7 @@ extension PlatformImage {
     let renderer = UIGraphicsImageRenderer(size: size)
     return renderer.image { _ in
       self.draw(in: CGRect(origin: .zero, size: size))
-    }
+    }.withRenderingMode(renderingMode)
 #endif
   }
 }
