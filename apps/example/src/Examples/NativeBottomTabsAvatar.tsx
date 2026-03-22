@@ -53,6 +53,7 @@ function NativeBottomTabsAvatar() {
             focused
               ? require('../../assets/icons/person_dark.png')
               : require('../../assets/icons/article_dark.png'),
+          tabBarLabelVisible: false,
         }}
       />
       <Tab.Screen

@@ -126,6 +126,8 @@ export type NativeBottomTabNavigationOptions = {
    * Whether to prevent default action of the tab. Defaults to `false`.
    */
   preventsDefault?: boolean;
+
+  tabBarLabelVisible?: boolean;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<

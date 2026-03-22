@@ -36,6 +36,10 @@ export default function NativeBottomTabView({
       getLabelText={({ route }) => {
         const options = descriptors[route.key]?.options;
 
+        if (options?.tabBarLabelVisible === false) {
+          return '';
+        }
+
         return options?.tabBarLabel !== undefined
           ? options.tabBarLabel
           : options?.title !== undefined
