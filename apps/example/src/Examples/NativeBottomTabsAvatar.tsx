@@ -71,7 +71,11 @@ function NativeBottomTabsAvatar() {
           },
         }}
         options={{
-          tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
+          tabBarIcon: () => ({
+            uri: require('../../assets/icons/chat_dark.png'),
+            width: 20,
+            height: 20,
+          }),
           tabBarActiveTintColor: 'white',
         }}
       />

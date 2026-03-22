@@ -13,7 +13,7 @@ public final class TabInfo: NSObject {
   public let testID: String?
   public let role: TabBarRole?
   public let preventsDefault: Bool
-  
+
   public let avatarUri: String?
   public let avatarInitials: String?
   public let avatarBackgroundColor: String?
@@ -77,7 +77,6 @@ public final class TabInfo: NSObject {
   private var props = TabViewProps()
   private var hostingController: PlatformHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
-  private var iconSize = CGSize(width: 27, height: 27)
   
   @objc var onPageSelected: RCTDirectEventBlock?
   
@@ -294,8 +293,10 @@ public final class TabInfo: NSObject {
               
               if tabData?.isAvatar == true {
                 props.icons[index] = image
+              } else if imageSource.size.width > 0 && imageSource.size.height > 0 {
+                props.icons[index] = image.resizeImageTo(size: imageSource.size)
               } else {
-                props.icons[index] = image.resizeImageTo(size: iconSize)
+                props.icons[index] = image.resizeImageTo(size: CGSize(width: 26, height: 26))
               }
             }
           })

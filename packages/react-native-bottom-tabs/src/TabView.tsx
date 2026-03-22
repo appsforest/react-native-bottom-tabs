@@ -358,15 +358,28 @@ const TabView = <Route extends BaseRoute>({
     () =>
       icons.map((icon) => {
         if (!icon || isAppleSymbol(icon)) {
-          return { uri: '' };
+          return {
+            uri: '',
+          };
         }
 
         if (isAvatarIcon(icon)) {
-          return { uri: icon.avatar.uri ?? '' };
+          return {
+            uri: icon.avatar.uri ?? '',
+          };
         }
 
-        // @ts-expect-error: TODO: Migrate of deep imports
-        return Image.resolveAssetSource(icon);
+        const iconAsAny = icon as any;
+
+        const resolved = Image.resolveAssetSource(
+          typeof iconAsAny?.uri === 'number' ? iconAsAny.uri : icon
+        );
+
+        return {
+          ...resolved,
+          width: iconAsAny?.width ?? 0,
+          height: iconAsAny?.height ?? 0,
+        };
       }),
     [icons]
   );
