@@ -94,10 +94,12 @@ function NativeBottomTabsAvatar() {
               uri: 'https://t3.ftcdn.net/jpg/06/01/50/96/360_F_601509638_jDwIDvlnryPRhXPsBeW1nXv90pdlbykC.jpg',
               size: 20,
               initials: 'JD',
-              strokeColor: '#4c98e4',
-              strokeWidth: 2,
-              strokeGap: 2,
               backgroundColor: '#767676',
+              stroke: {
+                color: '#4c98e4',
+                width: 2,
+                gap: 2,
+              },
             },
           }),
         }}

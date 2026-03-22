@@ -342,10 +342,12 @@ const TabView = <Route extends BaseRoute>({
             ? icon.avatar.backgroundColor
             : undefined,
           avatarSize: isAvatar ? (icon.avatar.size ?? 26) : undefined,
-          avatarStrokeColor: isAvatar ? icon.avatar.strokeColor : undefined,
-          avatarStrokeGap: isAvatar ? (icon.avatar.strokeGap ?? 1) : undefined,
+          avatarStrokeColor: isAvatar ? icon.avatar.stroke?.color : undefined,
           avatarStrokeWidth: isAvatar
-            ? (icon.avatar.strokeWidth ?? 1)
+            ? (icon.avatar.stroke?.width ?? 1)
+            : undefined,
+          avatarStrokeGap: isAvatar
+            ? (icon.avatar.stroke?.gap ?? 1)
             : undefined,
         };
       }),

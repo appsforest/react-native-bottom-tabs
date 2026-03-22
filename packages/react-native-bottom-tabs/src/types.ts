@@ -21,36 +21,44 @@ export type AvatarIcon = {
      * Remote URI for the avatar image.
      */
     uri?: string;
+
     /**
      * Fallback initials to display when `uri` is not provided or fails to load.
      * Maximum 2 characters.
      */
     initials?: string;
+
     /**
      * Background color for the initials circle. Accepts hex color string.
      * Defaults to the tab's active tint color.
      */
     backgroundColor?: string;
+
     /**
      * Width and height of the avatar circle in points.
      * Defaults to 26.
      */
     size?: number;
-    /**
-     * Stroke color for the border ring around the avatar. Accepts hex color string.
-     * When undefined, no border is drawn.
-     */
-    strokeColor?: string;
-    /**
-     * Gap between the avatar circle and the stroke border in points.
-     * Defaults to 1.
-     */
-    strokeGap?: number;
-    /**
-     * Width of the stroke border in points.
-     * Defaults to 1.
-     */
-    strokeWidth?: number;
+
+    stroke?: {
+      /**
+       * Stroke color for the border ring around the avatar. Accepts hex color string.
+       * When undefined, no border is drawn.
+       */
+      color: string;
+
+      /**
+       * Width of the stroke border in points.
+       * Defaults to 1.
+       */
+      width?: number;
+
+      /**
+       * Gap between the avatar circle and the stroke border in points.
+       * Defaults to 1.
+       */
+      gap?: number;
+    };
   };
 };
 
