@@ -46,7 +46,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@appsforest/react-native-bottom-tabs@npm:*, @appsforest/react-native-bottom-tabs@npm:1.1.0, @appsforest/react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
+"@appsforest/react-native-bottom-tabs@npm:*, @appsforest/react-native-bottom-tabs@npm:1.2.0, @appsforest/react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
   version: 0.0.0-use.local
   resolution: "@appsforest/react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs"
   dependencies:
@@ -68,7 +68,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@appsforest/react-navigation@npm:*, @appsforest/react-navigation@npm:1.1.0, @appsforest/react-navigation@workspace:packages/react-navigation":
+"@appsforest/react-navigation@npm:*, @appsforest/react-navigation@npm:1.2.0, @appsforest/react-navigation@workspace:packages/react-navigation":
   version: 0.0.0-use.local
   resolution: "@appsforest/react-navigation@workspace:packages/react-navigation"
   dependencies:
@@ -2782,8 +2782,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bottom-tabs/expo-template@workspace:packages/expo-template"
   dependencies:
-    "@appsforest/react-native-bottom-tabs": "npm:1.1.0"
-    "@appsforest/react-navigation": "npm:1.1.0"
+    "@appsforest/react-native-bottom-tabs": "npm:1.2.0"
+    "@appsforest/react-navigation": "npm:1.2.0"
     "@babel/core": "npm:^7.28.4"
     "@expo/vector-icons": "npm:^14.0.2"
     "@react-navigation/native": "npm:^7.1.17"

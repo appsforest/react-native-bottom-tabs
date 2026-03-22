@@ -14,8 +14,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@appsforest/react-native-bottom-tabs": "1.1.0",
-    "@appsforest/react-navigation": "1.1.0",
+    "@appsforest/react-native-bottom-tabs": "1.2.0",
+    "@appsforest/react-navigation": "1.2.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^7.1.17",
     "expo": "^54.0.1",
