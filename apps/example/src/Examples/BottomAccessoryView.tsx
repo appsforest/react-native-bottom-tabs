@@ -1,4 +1,4 @@
-import TabView, { SceneMap } from 'react-native-bottom-tabs';
+import TabView, { SceneMap } from '@appsforest/react-native-bottom-tabs';
 import { useState } from 'react';
 import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';

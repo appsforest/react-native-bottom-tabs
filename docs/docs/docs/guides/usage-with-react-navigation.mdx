@@ -17,7 +17,7 @@ Minimal example of using `createNativeBottomTabNavigator` with React Navigation:
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@appsforest/react-navigation';
 
 const Tab = createNativeBottomTabNavigator();
 
@@ -167,6 +167,7 @@ Controls how the tab bar behaves when content is scrolled.
 - Default: `undefined` (uses system default)
 
 Options:
+
 - `automatic`: Platform determines the behavior
 - `onScrollDown`: Tab bar minimizes when scrolling down
 - `onScrollUp`: Tab bar minimizes when scrolling up
@@ -207,15 +208,14 @@ function MyTabBar({ state, descriptors, navigation }) {
 
 function MyTabs() {
   return (
-    <Tab.Navigator
-      tabBar={(props) => <MyTabBar {...props} />}
-    >
+    <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
 ```
+
 #### `renderBottomAccessoryView` <Badge text="iOS" type="info" /> <Badge text="experimental" type="danger"/>
 
 Function that returns a React element to render as [bottom accessory](https://developer.apple.com/documentation/uikit/uitabbarcontroller/bottomaccessory).
@@ -270,7 +270,7 @@ SF Symbols are only supported on Apple platforms.
 
 :::warning
 
-Metro transformers that modify the import resolutions of images to something that is *not* React Native's `ImageSource` will break this. A notable community example of such is [react-native-svg-transformer](https://github.com/kristerkari/react-native-svg-transformer).
+Metro transformers that modify the import resolutions of images to something that is _not_ React Native's `ImageSource` will break this. A notable community example of such is [react-native-svg-transformer](https://github.com/kristerkari/react-native-svg-transformer).
 
 For best results, avoid the use of such transformers altogether.
 
@@ -294,12 +294,12 @@ config.resolver.sourceExts = [...config.resolver.sourceExts, "svg"];
 ```
 
 Then change your require calls like so:
+
 ```
 tabBarIcon: () => require('person.svgx')
 ```
 
 :::
-
 
 #### `tabBarBadge`
 
@@ -311,14 +311,14 @@ To display a badge without text (just a dot), you need to pass a string with a s
 
 #### `tabBarBadgeBackgroundColor`
 
- - Type: `string`
- 
+- Type: `string`
+
 Set the background color for the badge on android.
 Uses the system color by default.
 
 #### `tabBarBadgeTextColor`
 
- - Type: `string`
+- Type: `string`
 
 Set the text color for the badge on android.
 Uses the system color by default.
@@ -338,6 +338,7 @@ Due to native limitations on iOS, this option doesn't hide the tab item **when h
 Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
 
 #### `freezeOnBlur`
+
 Boolean indicating whether to prevent inactive screens from re-rendering. Defaults to false.
 
 It's working separately from `enableFreeze()` in `react-native-screens`. So settings won't be shared between them.
@@ -352,7 +353,6 @@ Whether to prevent default tab switching behavior when this tab is pressed. This
 :::note
 Due to iOS 26's new tab switching animations, controlling tab switching from JavaScript can cause significant delays. The `preventsDefault` option allows you to define this behavior statically to avoid animation delays.
 :::
-
 
 #### `tabBarButtonTestID`
 
@@ -395,7 +395,6 @@ React.useEffect(() => {
   const unsubscribe = navigation.addListener('tabPress', (e) => {
     // Note: For iOS 26+, use the `preventsDefault` option instead of `e.preventDefault()`
     // to avoid animation delays
-    
     // Do something manually
     // ...
   });
@@ -427,7 +426,7 @@ React.useEffect(() => {
 This hook returns the height of the bottom tab bar. This is useful when you want to place a component above the tab bar on iOS. It's not needed to offset the content of the screen as the navigator does it automatically.
 
 ```tsx
-import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
+import { useBottomTabBarHeight } from '@appsforest/react-native-bottom-tabs';
 
 function MyComponent() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -444,7 +443,7 @@ function MyComponent() {
 Alternatively, you can use the `BottomTabBarHeightContext` directly if you are using a class component or need it in a reusable component that can be used outside the bottom tab navigator:
 
 ```tsx
-import { BottomTabBarHeightContext } from 'react-native-bottom-tabs';
+import { BottomTabBarHeightContext } from '@appsforest/react-native-bottom-tabs';
 
 // ...
 

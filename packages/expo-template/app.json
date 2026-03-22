@@ -24,7 +24,7 @@
     },
     "plugins": [
       "expo-router",
-      "react-native-bottom-tabs",
+      "@appsforest/react-native-bottom-tabs",
       [
         "expo-splash-screen",
         {

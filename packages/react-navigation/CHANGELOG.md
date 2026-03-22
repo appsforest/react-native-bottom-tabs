@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [#485](https://github.com/callstackincubator/react-native-bottom-tabs/pull/485) [`ddfeefb`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/ddfeefb43e958bcc085b2b82f560576144d46a92) Thanks [@okwasniewski](https://github.com/okwasniewski)! - fix: properly pop to top to resolve freezing issues
+- [#485](https://github.com/callstackincubator/react-native-bottom-tabs/pull/485) [`ddfeefb`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/ddfeefb43e958bcc085b2b82f560576144d46a92) Thanks [@okwasniewski](https://github.com/appsforest)! - fix: properly pop to top to resolve freezing issues
 
 ## 1.0.5
 
@@ -20,7 +20,7 @@
 
 ### Major Changes
 
-- [#435](https://github.com/callstackincubator/react-native-bottom-tabs/pull/435) [`4b4e781`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/4b4e781cead514784c46599ab09554fad6c41208) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat!: drop old architecture
+- [#435](https://github.com/callstackincubator/react-native-bottom-tabs/pull/435) [`4b4e781`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/4b4e781cead514784c46599ab09554fad6c41208) Thanks [@okwasniewski](https://github.com/appsforest)! - feat!: drop old architecture
 
 ## 0.12.0
 
@@ -32,13 +32,13 @@
 
 ### Minor Changes
 
-- [#408](https://github.com/callstackincubator/react-native-bottom-tabs/pull/408) [`f564fde`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/f564fdeca3abef66f3db27a0454fb4f638baecb6) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: introduce preventsDefault option
+- [#408](https://github.com/callstackincubator/react-native-bottom-tabs/pull/408) [`f564fde`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/f564fdeca3abef66f3db27a0454fb4f638baecb6) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: introduce preventsDefault option
 
 ## 0.10.2
 
 ### Patch Changes
 
-- [#412](https://github.com/callstackincubator/react-native-bottom-tabs/pull/412) [`425aea5`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/425aea51bb214d516b8e4d563c5d55e9c945009c) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: introduce scene style
+- [#412](https://github.com/callstackincubator/react-native-bottom-tabs/pull/412) [`425aea5`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/425aea51bb214d516b8e4d563c5d55e9c945009c) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: introduce scene style
 
 ## 0.10.1
 
@@ -46,7 +46,7 @@
 
 ### Minor Changes
 
-- [#390](https://github.com/callstackincubator/react-native-bottom-tabs/pull/390) [`993b1aa`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/993b1aa53a6661a927856f1d3a6d808a846f0c1e) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: add ios tab roles
+- [#390](https://github.com/callstackincubator/react-native-bottom-tabs/pull/390) [`993b1aa`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/993b1aa53a6661a927856f1d3a6d808a846f0c1e) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: add ios tab roles
 
 ## 0.9.2
 
@@ -62,7 +62,7 @@
 
 ### Patch Changes
 
-- [#302](https://github.com/callstackincubator/react-native-bottom-tabs/pull/302) [`b9c9840`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/b9c9840763b0f734aeb59735452b233564faa937) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: implement freezeOnBlur
+- [#302](https://github.com/callstackincubator/react-native-bottom-tabs/pull/302) [`b9c9840`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/b9c9840763b0f734aeb59735452b233564faa937) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: implement freezeOnBlur
 
 ## 0.8.6
 
@@ -72,7 +72,7 @@
 
 ### Patch Changes
 
-- [#273](https://github.com/callstackincubator/react-native-bottom-tabs/pull/273) [`196ea22`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/196ea2224f041f195fd10c5b611818aab4d799ca) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: allow for custom JavaScript tab bars
+- [#273](https://github.com/callstackincubator/react-native-bottom-tabs/pull/273) [`196ea22`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/196ea2224f041f195fd10c5b611818aab4d799ca) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: allow for custom JavaScript tab bars
 
 ## 0.8.3
 
@@ -86,19 +86,19 @@
 
 ### Patch Changes
 
-- [#221](https://github.com/okwasniewski/react-native-bottom-tabs/pull/221) [`1ae783d`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/1ae783df914fc661d25dfcbfafec32c70e9b3538) Thanks [@okwasniewski](https://github.com/okwasniewski)! - revert: freezeOnblur
+- [#221](https://github.com/appsforest/react-native-bottom-tabs/pull/221) [`1ae783d`](https://github.com/appsforest/react-native-bottom-tabs/commit/1ae783df914fc661d25dfcbfafec32c70e9b3538) Thanks [@okwasniewski](https://github.com/appsforest)! - revert: freezeOnblur
 
 ## 0.7.7
 
 ### Patch Changes
 
-- [#207](https://github.com/okwasniewski/react-native-bottom-tabs/pull/207) [`c9f13ad`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/c9f13ad01aa147341ac74acce00b7ae8e1db5402) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: add freezeOnBlur
+- [#207](https://github.com/appsforest/react-native-bottom-tabs/pull/207) [`c9f13ad`](https://github.com/appsforest/react-native-bottom-tabs/commit/c9f13ad01aa147341ac74acce00b7ae8e1db5402) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: add freezeOnBlur
 
 ## 0.7.6
 
 ### Patch Changes
 
-- [#193](https://github.com/okwasniewski/react-native-bottom-tabs/pull/193) [`79311a5`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/79311a5939e7f33981ea9924625ef47e5ade9d13) Thanks [@okwasniewski](https://github.com/okwasniewski)! - chore: setup provenance
+- [#193](https://github.com/appsforest/react-native-bottom-tabs/pull/193) [`79311a5`](https://github.com/appsforest/react-native-bottom-tabs/commit/79311a5939e7f33981ea9924625ef47e5ade9d13) Thanks [@okwasniewski](https://github.com/appsforest)! - chore: setup provenance
 
 ## 0.7.5
 

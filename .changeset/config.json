@@ -1,11 +1,16 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.4/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "callstackincubator/react-native-bottom-tabs" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "callstackincubator/react-native-bottom-tabs"
+    }
+  ],
   "commit": false,
   "fixed": [
     [
-      "react-native-bottom-tabs",
-      "@bottom-tabs/react-navigation"
+      "@appsforest/react-native-bottom-tabs",
+      "@appsforest/react-navigation"
     ]
   ],
   "linked": [],

@@ -5,7 +5,7 @@ import { Chat } from '../Screens/Chat';
 import {
   createNativeBottomTabNavigator,
   type BottomTabBarProps,
-} from '@bottom-tabs/react-navigation';
+} from '@appsforest/react-navigation';
 import { BottomTabBar } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 

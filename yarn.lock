@@ -27,6 +27,69 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@appsforest/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@appsforest/monorepo@workspace:."
+  dependencies:
+    "@changesets/changelog-github": "npm:^0.5.0"
+    "@changesets/cli": "npm:^2.27.10"
+    "@commitlint/config-conventional": "npm:^17.0.2"
+    commitlint: "npm:^17.0.2"
+    devmoji: "npm:^2.3.0"
+    eslint: "npm:^8.51.0"
+    eslint-config-prettier: "npm:^9.0.0"
+    eslint-plugin-ft-flow: "npm:^3.0.11"
+    eslint-plugin-prettier: "npm:^5.0.1"
+    jest: "npm:^29.7.0"
+    prettier: "npm:^3.0.3"
+    turbo: "npm:^2.1.0"
+    typescript: "npm:^5.9.2"
+  languageName: unknown
+  linkType: soft
+
+"@appsforest/react-native-bottom-tabs@npm:*, @appsforest/react-native-bottom-tabs@npm:1.1.0, @appsforest/react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
+  version: 0.0.0-use.local
+  resolution: "@appsforest/react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs"
+  dependencies:
+    "@expo/config-plugins": "npm:^7.0.0 || ^8.0.0"
+    "@react-native/babel-plugin-codegen": "npm:0.81.1"
+    "@react-native/eslint-config": "npm:0.81.1"
+    "@types/jest": "npm:^29.5.5"
+    "@types/react": "npm:^18.2.44"
+    react: "npm:^19.1.0"
+    react-freeze: "npm:^1.0.0"
+    react-native: "npm:0.81.1"
+    react-native-builder-bob: "npm:^0.40.13"
+    sf-symbols-typescript: "npm:^2.0.0"
+    typescript: "npm:^5.9.2"
+    use-latest-callback: "npm:^0.2.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  languageName: unknown
+  linkType: soft
+
+"@appsforest/react-navigation@npm:*, @appsforest/react-navigation@npm:1.1.0, @appsforest/react-navigation@workspace:packages/react-navigation":
+  version: 0.0.0-use.local
+  resolution: "@appsforest/react-navigation@workspace:packages/react-navigation"
+  dependencies:
+    "@appsforest/react-native-bottom-tabs": "npm:*"
+    "@react-navigation/native": "npm:^7.1.17"
+    "@types/color": "npm:^4.2.0"
+    color: "npm:^5.0.0"
+    jest: "npm:^29.7.0"
+    react: "npm:^19.1.0"
+    react-native: "npm:0.81.1"
+    react-native-builder-bob: "npm:^0.40.13"
+    typescript: "npm:^5.9.2"
+  peerDependencies:
+    "@appsforest/react-native-bottom-tabs": "*"
+    "@react-navigation/native": ">=7"
+    react: "*"
+    react-native: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ark/schema@npm:0.49.0":
   version: 0.49.0
   resolution: "@ark/schema@npm:0.49.0"
@@ -2720,8 +2783,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bottom-tabs/expo-template@workspace:packages/expo-template"
   dependencies:
+    "@appsforest/react-native-bottom-tabs": "npm:1.1.0"
+    "@appsforest/react-navigation": "npm:1.1.0"
     "@babel/core": "npm:^7.28.4"
-    "@bottom-tabs/react-navigation": "npm:1.1.0"
     "@expo/vector-icons": "npm:^14.0.2"
     "@react-navigation/native": "npm:^7.1.17"
     "@types/jest": "npm:^29.5.12"
@@ -2745,7 +2809,6 @@ __metadata:
     react: "npm:^19.1.0"
     react-dom: "npm:18.3.1"
     react-native: "npm:0.81.4"
-    react-native-bottom-tabs: "npm:1.1.0"
     react-native-gesture-handler: "npm:^2.28.0"
     react-native-reanimated: "npm:^4.1.0"
     react-native-safe-area-context: "npm:^5.6.1"
@@ -2755,47 +2818,6 @@ __metadata:
     react-native-worklets: "npm:0.5.1"
     react-test-renderer: "npm:18.3.1"
     typescript: "npm:^5.9.2"
-  languageName: unknown
-  linkType: soft
-
-"@bottom-tabs/monorepo@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@bottom-tabs/monorepo@workspace:."
-  dependencies:
-    "@changesets/changelog-github": "npm:^0.5.0"
-    "@changesets/cli": "npm:^2.27.10"
-    "@commitlint/config-conventional": "npm:^17.0.2"
-    commitlint: "npm:^17.0.2"
-    devmoji: "npm:^2.3.0"
-    eslint: "npm:^8.51.0"
-    eslint-config-prettier: "npm:^9.0.0"
-    eslint-plugin-ft-flow: "npm:^3.0.11"
-    eslint-plugin-prettier: "npm:^5.0.1"
-    jest: "npm:^29.7.0"
-    prettier: "npm:^3.0.3"
-    turbo: "npm:^2.1.0"
-    typescript: "npm:^5.9.2"
-  languageName: unknown
-  linkType: soft
-
-"@bottom-tabs/react-navigation@npm:*, @bottom-tabs/react-navigation@npm:1.1.0, @bottom-tabs/react-navigation@workspace:packages/react-navigation":
-  version: 0.0.0-use.local
-  resolution: "@bottom-tabs/react-navigation@workspace:packages/react-navigation"
-  dependencies:
-    "@react-navigation/native": "npm:^7.1.17"
-    "@types/color": "npm:^4.2.0"
-    color: "npm:^5.0.0"
-    jest: "npm:^29.7.0"
-    react: "npm:^19.1.0"
-    react-native: "npm:0.81.1"
-    react-native-bottom-tabs: "npm:*"
-    react-native-builder-bob: "npm:^0.40.13"
-    typescript: "npm:^5.9.2"
-  peerDependencies:
-    "@react-navigation/native": ">=7"
-    react: "*"
-    react-native: "*"
-    react-native-bottom-tabs: "*"
   languageName: unknown
   linkType: soft
 
@@ -15954,10 +15976,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-native-bottom-tabs-example@workspace:apps/example"
   dependencies:
+    "@appsforest/react-native-bottom-tabs": "npm:*"
+    "@appsforest/react-navigation": "npm:*"
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
     "@babel/runtime": "npm:^7.28.4"
-    "@bottom-tabs/react-navigation": "npm:*"
     "@react-native-community/cli": "npm:^20.0.2"
     "@react-native/babel-preset": "npm:^0.81.4"
     "@react-native/metro-config": "npm:0.81.4"
@@ -15973,7 +15996,6 @@ __metadata:
     color: "npm:^5.0.0"
     react: "npm:^19.1.0"
     react-native: "npm:^0.81.4"
-    react-native-bottom-tabs: "npm:*"
     react-native-builder-bob: "npm:^0.40.13"
     react-native-edge-to-edge: "npm:^1.7.0"
     react-native-gesture-handler: "npm:^2.28.0"
@@ -15982,28 +16004,6 @@ __metadata:
     react-native-screens: "npm:^4.18.0"
     react-native-test-app: "npm:^4.4.10"
     react-native-vector-icons: "npm:^10.2.0"
-  languageName: unknown
-  linkType: soft
-
-"react-native-bottom-tabs@npm:*, react-native-bottom-tabs@npm:1.1.0, react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
-  version: 0.0.0-use.local
-  resolution: "react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs"
-  dependencies:
-    "@expo/config-plugins": "npm:^7.0.0 || ^8.0.0"
-    "@react-native/babel-plugin-codegen": "npm:0.81.1"
-    "@react-native/eslint-config": "npm:0.81.1"
-    "@types/jest": "npm:^29.5.5"
-    "@types/react": "npm:^18.2.44"
-    react: "npm:^19.1.0"
-    react-freeze: "npm:^1.0.0"
-    react-native: "npm:0.81.1"
-    react-native-builder-bob: "npm:^0.40.13"
-    sf-symbols-typescript: "npm:^2.0.0"
-    typescript: "npm:^5.9.2"
-    use-latest-callback: "npm:^0.2.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
   languageName: unknown
   linkType: soft
 

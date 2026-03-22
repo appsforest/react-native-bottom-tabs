@@ -11,7 +11,7 @@ Follow installation guide in React Native Vector Icons [README](https://github.c
 ### Usage
 
 ```tsx
-import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@appsforest/react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const homeIcon = Icon.getImageSourceSync('home', 24);
@@ -22,22 +22,21 @@ const Tabs = createNativeBottomTabNavigator();
 function NativeBottomTabs() {
   return (
     <Tabs.Navigator>
-        <Tabs.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: () => homeIcon,
-          }}
-        />
-        <Tabs.Screen
-          name="Explore"
-          component={ExploreScreen}
-          options={{
-            tabBarIcon: () => exploreIcon,
-          }}
-        />
+      <Tabs.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: () => homeIcon,
+        }}
+      />
+      <Tabs.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{
+          tabBarIcon: () => exploreIcon,
+        }}
+      />
     </Tabs.Navigator>
   );
 }
 ```
-

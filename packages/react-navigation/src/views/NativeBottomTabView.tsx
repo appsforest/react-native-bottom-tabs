@@ -9,7 +9,7 @@ import type {
   NativeBottomTabNavigationConfig,
   NativeBottomTabNavigationHelpers,
 } from '../types';
-import TabView from 'react-native-bottom-tabs';
+import TabView from '@appsforest/react-native-bottom-tabs';
 
 type Props = NativeBottomTabNavigationConfig & {
   state: TabNavigationState<ParamListBase>;

@@ -18,7 +18,7 @@ src/
 ### Native Implementation
 
 ```tsx title="TabNavigator.native.tsx"
-import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@appsforest/react-navigation';
 import { Platform } from 'react-native';
 import { HomeScreen } from '../screens/HomeScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
@@ -106,7 +106,6 @@ export default function App() {
   );
 }
 ```
-
 
 ## Additional Resources
 

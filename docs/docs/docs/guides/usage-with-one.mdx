@@ -8,18 +8,13 @@ The `@bottom-tabs/react-navigation` package provides a native bottom tab navigat
 
 In order to use this navigator with [One](https://onestack.dev/), you need to wrap it with the `withLayoutContext`.
 
-
 ```tsx
-import { withLayoutContext } from 'one'
-import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { withLayoutContext } from 'one';
+import { createNativeBottomTabNavigator } from '@appsforest/react-navigation';
 
-const NativeTabsNavigator = createNativeBottomTabNavigator().Navigator
+const NativeTabsNavigator = createNativeBottomTabNavigator().Navigator;
 
-export const NativeTabs = withLayoutContext(
-  NativeTabsNavigator
-)
+export const NativeTabs = withLayoutContext(NativeTabsNavigator);
 ```
 
 For props and more information, see the [React Navigation integration guide](/docs/guides/usage-with-react-navigation).
-
-

@@ -52,7 +52,7 @@
 
 ### Major Changes
 
-- [#435](https://github.com/callstackincubator/react-native-bottom-tabs/pull/435) [`4b4e781`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/4b4e781cead514784c46599ab09554fad6c41208) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat!: drop old architecture
+- [#435](https://github.com/callstackincubator/react-native-bottom-tabs/pull/435) [`4b4e781`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/4b4e781cead514784c46599ab09554fad6c41208) Thanks [@okwasniewski](https://github.com/appsforest)! - feat!: drop old architecture
 
 ### Patch Changes
 
@@ -192,7 +192,7 @@
 
 ### Patch Changes
 
-- [#270](https://github.com/callstackincubator/react-native-bottom-tabs/pull/270) [`7a79a7f`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/7a79a7f4c6f8326ae55d2e2bea8b4f95e6b55d1d) Thanks [@okwasniewski](https://github.com/okwasniewski)! - fix: provide proper typings for withLayoutContext
+- [#270](https://github.com/callstackincubator/react-native-bottom-tabs/pull/270) [`7a79a7f`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/7a79a7f4c6f8326ae55d2e2bea8b4f95e6b55d1d) Thanks [@okwasniewski](https://github.com/appsforest)! - fix: provide proper typings for withLayoutContext
 
 - Updated dependencies [[`4fa80c2`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/4fa80c2ed7d838d0a3feaa445939e365b7770b54)]:
   - react-native-bottom-tabs@0.8.3
@@ -210,4 +210,4 @@
 
 ### Patch Changes
 
-- [#256](https://github.com/callstackincubator/react-native-bottom-tabs/pull/256) [`098f523`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/098f523d195dbe010357d09ebcf71ff8484c25af) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: initial release
+- [#256](https://github.com/callstackincubator/react-native-bottom-tabs/pull/256) [`098f523`](https://github.com/callstackincubator/react-native-bottom-tabs/commit/098f523d195dbe010357d09ebcf71ff8484c25af) Thanks [@okwasniewski](https://github.com/appsforest)! - feat: initial release

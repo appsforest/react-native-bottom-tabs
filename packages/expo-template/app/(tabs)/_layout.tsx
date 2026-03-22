@@ -4,7 +4,7 @@ import {
   createNativeBottomTabNavigator,
   NativeBottomTabNavigationOptions,
   NativeBottomTabNavigationEventMap,
-} from '@bottom-tabs/react-navigation';
+} from '@appsforest/react-navigation';
 import { ParamListBase, TabNavigationState } from '@react-navigation/native';
 
 const BottomTabNavigator = createNativeBottomTabNavigator().Navigator;

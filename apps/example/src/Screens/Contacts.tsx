@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
+import { useBottomTabBarHeight } from '@appsforest/react-native-bottom-tabs';
 import { MusicControl } from '../Components/MusicControl';
 
 type Item = { name: string; number: number };
@@ -117,8 +117,8 @@ export function Contacts({ query, ...rest }: Props) {
         data={
           query
             ? CONTACTS.filter((c) =>
-                c.name.toLowerCase().includes(query.toLowerCase())
-              )
+              c.name.toLowerCase().includes(query.toLowerCase())
+            )
             : CONTACTS
         }
         keyExtractor={(_, i) => String(i)}

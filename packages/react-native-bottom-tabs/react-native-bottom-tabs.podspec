@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "15.1"
   s.osx.deployment_target = "11.0"
 
-  s.source       = { :git => "https://github.com/okwasniewski/react-native-bottom-tabs.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/appsforest/react-native-bottom-tabs.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp,swift}"
   s.static_framework = true

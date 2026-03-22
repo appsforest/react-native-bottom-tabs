@@ -1,5 +1,5 @@
 {
-  "name": "@bottom-tabs/monorepo",
+  "name": "@appsforest/monorepo",
   "private": true,
   "workspaces": {
     "packages": [
