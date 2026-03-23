@@ -135,6 +135,9 @@ interface Props<Route extends BaseRoute> {
    */
   getPreventsDefault?: (props: { route: Route }) => boolean | undefined;
 
+  /** Uses `true` by default. */
+  getLabelVisible: (props: { route: Route }) => boolean | undefined;
+
   /** Uses `automatic` by default. */
   getIconRenderingMode?: (props: {
     route: Route;
@@ -253,6 +256,7 @@ const TabView = <Route extends BaseRoute>({
   getRole = ({ route }: { route: Route }) => route.role,
   getSceneStyle = ({ route }: { route: Route }) => route.style,
   getPreventsDefault = ({ route }: { route: Route }) => route.preventsDefault,
+  getLabelVisible = ({ route }: { route: Route }) => route.labelVisible,
   getIconRenderingMode = ({ route }: { route: Route }) =>
     route.iconRenderingMode,
   hapticFeedbackEnabled = false,
@@ -335,6 +339,7 @@ const TabView = <Route extends BaseRoute>({
           testID: getTestID?.({ route }),
           role: getRole?.({ route }),
           preventsDefault: getPreventsDefault?.({ route }),
+          labelVisible: getLabelVisible?.({ route }) ?? true,
           iconRenderingMode: getIconRenderingMode?.({ route }),
           avatarUri: isAvatar ? (icon.avatar.uri ?? '') : undefined,
           avatarInitials: isAvatar ? icon.avatar.initials : undefined,
@@ -363,6 +368,7 @@ const TabView = <Route extends BaseRoute>({
       getTestID,
       getRole,
       getPreventsDefault,
+      getLabelVisible,
       getIconRenderingMode,
     ]
   );

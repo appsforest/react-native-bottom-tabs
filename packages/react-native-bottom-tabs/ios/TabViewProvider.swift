@@ -13,6 +13,7 @@ public final class TabInfo: NSObject {
   public let testID: String?
   public let role: TabBarRole?
   public let preventsDefault: Bool
+  public let labelVisible: Bool
   public let iconRenderingMode: String?
 
   public let avatarUri: String?
@@ -37,6 +38,7 @@ public final class TabInfo: NSObject {
     testID: String?,
     role: String?,
     preventsDefault: Bool = false,
+    labelVisible: Bool = true,
     iconRenderingMode: String? = nil,
     avatarUri: String? = nil,
     avatarInitials: String? = nil,
@@ -55,6 +57,7 @@ public final class TabInfo: NSObject {
     self.testID = testID
     self.role = TabBarRole(rawValue: role ?? "")
     self.preventsDefault = preventsDefault
+    self.labelVisible = labelVisible
     self.iconRenderingMode = iconRenderingMode
     self.avatarUri = avatarUri
     self.avatarInitials = avatarInitials

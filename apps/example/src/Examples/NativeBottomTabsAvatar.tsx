@@ -49,10 +49,13 @@ function NativeBottomTabsAvatar() {
           tabBarButtonTestID: 'articleTestID',
           tabBarBadge: '10',
           tabBarLabel: label,
-          tabBarIcon: ({ focused }) =>
-            focused
+          tabBarIcon: ({ focused }) => ({
+            uri: focused
               ? require('../../assets/icons/person_dark.png')
               : require('../../assets/icons/article_dark.png'),
+            width: 42,
+            height: 42,
+          }),
           tabBarLabelVisible: false,
         }}
       />
@@ -63,8 +66,8 @@ function NativeBottomTabsAvatar() {
           tabBarIconRenderingMode: 'alwaysOriginal',
           tabBarIcon: () => ({
             uri: require('../../assets/avatar-1.png'),
-            width: 20,
-            height: 20,
+            width: 26,
+            height: 26,
           }),
         }}
       />

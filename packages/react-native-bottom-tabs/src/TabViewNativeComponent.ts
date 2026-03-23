@@ -34,6 +34,7 @@ export type TabViewItems = ReadonlyArray<{
   testID?: string;
   role?: string;
   preventsDefault?: boolean;
+  labelVisible?: boolean;
   iconRenderingMode?: string;
   avatarUri?: string;
   avatarInitials?: string;

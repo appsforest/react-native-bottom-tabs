@@ -67,8 +67,8 @@ extension UIImage {
       UIBezierPath(ovalIn: avatarRect).fill()
 
       let font: UIFont = fontFamily != nil || fontWeight != nil
-        ? RCTFont.update(nil, withFamily: fontFamily, size: NSNumber(value: Double(size.width * 0.5)), weight: fontWeight, style: nil, variant: nil, scaleMultiplier: 1.0)
-        : UIFont.systemFont(ofSize: size.width * 0.5, weight: .semibold)
+        ? RCTFont.update(nil, withFamily: fontFamily, size: NSNumber(value: Double(size.width * 0.42)), weight: fontWeight, style: nil, variant: nil, scaleMultiplier: 1.0)
+        : UIFont.systemFont(ofSize: size.width * 0.42, weight: .semibold)
 
       let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: UIColor.white]
       let str = NSAttributedString(string: initials, attributes: attrs)

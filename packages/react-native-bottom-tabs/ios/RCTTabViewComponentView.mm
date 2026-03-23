@@ -41,6 +41,8 @@ bool operator==(const RNCTabViewItemsStruct& lhs, const RNCTabViewItemsStruct& r
   lhs.testID == rhs.testID &&
   lhs.role == rhs.role &&
   lhs.preventsDefault == rhs.preventsDefault &&
+  lhs.labelVisible == rhs.labelVisible &&
+  lhs.iconRenderingMode == rhs.iconRenderingMode &&
   lhs.avatarUri == rhs.avatarUri &&
   lhs.avatarInitials == rhs.avatarInitials &&
   lhs.avatarBackgroundColor == rhs.avatarBackgroundColor &&
@@ -203,6 +205,7 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
                                          testID:RCTNSStringFromStringNilIfEmpty(item.testID)
                                            role:RCTNSStringFromStringNilIfEmpty(item.role)
                                 preventsDefault:item.preventsDefault
+                                   labelVisible:item.labelVisible
                               iconRenderingMode:RCTNSStringFromStringNilIfEmpty(item.iconRenderingMode)
                                       avatarUri:RCTNSStringFromStringNilIfEmpty(item.avatarUri)
                                  avatarInitials:RCTNSStringFromStringNilIfEmpty(item.avatarInitials)

@@ -36,10 +36,6 @@ export default function NativeBottomTabView({
       getLabelText={({ route }) => {
         const options = descriptors[route.key]?.options;
 
-        if (options?.tabBarLabelVisible === false) {
-          return '';
-        }
-
         return options?.tabBarLabel !== undefined
           ? options.tabBarLabel
           : options?.title !== undefined
@@ -92,6 +88,9 @@ export default function NativeBottomTabView({
       }}
       getPreventsDefault={({ route }) =>
         descriptors[route.key]?.options.preventsDefault
+      }
+      getLabelVisible={({ route }) =>
+        descriptors[route.key]?.options.tabBarLabelVisible
       }
       getIconRenderingMode={({ route }) =>
         descriptors[route.key]?.options.tabBarIconRenderingMode

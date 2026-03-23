@@ -35,8 +35,8 @@ struct TabItem: View {
       Image(systemName: sfSymbol).noneSymbolVariant()
     }
 #endif
-    
-    if labeled != false {
+
+    if labeled != false && (tabData?.labelVisible ?? true) {
       Text(title ?? "")
     }
   }

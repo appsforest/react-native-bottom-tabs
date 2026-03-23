@@ -82,6 +82,7 @@ export type BaseRoute = {
   freezeOnBlur?: boolean;
   style?: StyleProp<ViewStyle>;
   preventsDefault?: boolean;
+  labelVisible?: boolean;
   iconRenderingMode?: IconRenderingMode;
 };
 

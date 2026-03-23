@@ -25,9 +25,19 @@ data class TabInfo(
   val badgeTextColor: Int?,
   val activeTintColor: Int?,
   val hidden: Boolean,
-  val testID: String?
-)
-
+  val testID: String?,
+  val labelVisible: Boolean = true,
+  val iconRenderingMode: String?,
+  val avatarUri: String?,
+  val avatarInitials: String?,
+  val avatarBackgroundColor: String?,
+  val avatarSize: Double,
+  val avatarStrokeColor: String?,
+  val avatarStrokeGap: Double,
+  val avatarStrokeWidth: Double
+) {
+  val isAvatar: Boolean get() = avatarUri != null || avatarInitials != null
+}
 
 @ReactModule(name = RCTTabViewManager.NAME)
 class RCTTabViewManager(context: ReactApplicationContext) :
@@ -105,7 +115,16 @@ class RCTTabViewManager(context: ReactApplicationContext) :
                 badgeTextColor = if (item.hasKey("badgeTextColor")) item.getInt("badgeTextColor") else null,
                 activeTintColor = if (item.hasKey("activeTintColor")) item.getInt("activeTintColor") else null,
                 hidden = if (item.hasKey("hidden")) item.getBoolean("hidden") else false,
-                testID = item.getString("testID")
+                testID = item.getString("testID"),
+                labelVisible = if (item.hasKey("labelVisible")) item.getBoolean("labelVisible") else true,
+                iconRenderingMode = if (item.hasKey("iconRenderingMode")) item.getString("iconRenderingMode") else null,
+                avatarUri = if (item.hasKey("avatarUri")) item.getString("avatarUri") else null,
+                avatarInitials = if (item.hasKey("avatarInitials")) item.getString("avatarInitials") else null,
+                avatarBackgroundColor = if (item.hasKey("avatarBackgroundColor")) item.getString("avatarBackgroundColor") else null,
+                avatarSize = if (item.hasKey("avatarSize")) item.getDouble("avatarSize") else 26.0,
+                avatarStrokeColor = if (item.hasKey("avatarStrokeColor")) item.getString("avatarStrokeColor") else null,
+                avatarStrokeGap = if (item.hasKey("avatarStrokeGap")) item.getDouble("avatarStrokeGap") else 1.0,
+                avatarStrokeWidth = if (item.hasKey("avatarStrokeWidth")) item.getDouble("avatarStrokeWidth") else 1.0,
               )
             )
         }
