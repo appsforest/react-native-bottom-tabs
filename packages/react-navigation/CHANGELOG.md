@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 1.3.0
+
+### Minor Changes
+
+- feat: apply changes to android + improve labelVisible prop
+
 ## 1.1.0
 
 ### Minor Changes
