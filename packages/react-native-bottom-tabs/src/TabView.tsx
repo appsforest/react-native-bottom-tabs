@@ -512,9 +512,9 @@ const TabView = <Route extends BaseRoute>({
           );
         })}
         {Platform.OS === 'ios' &&
-        parseFloat(Platform.Version) >= 26 &&
-        renderBottomAccessoryView &&
-        !renderCustomTabBar ? (
+          parseFloat(Platform.Version) >= 26 &&
+          renderBottomAccessoryView &&
+          !renderCustomTabBar ? (
           <BottomAccessoryView
             renderBottomAccessoryView={renderBottomAccessoryView}
           />
