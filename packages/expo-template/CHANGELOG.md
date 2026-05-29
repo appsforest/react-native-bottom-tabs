@@ -1,5 +1,13 @@
 # @bottom-tabs/expo-template
 
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies [e82e636]
+  - @appsforest/react-native-bottom-tabs@1.4.0
+  - @appsforest/react-navigation@1.4.0
+
 ## 1.0.7
 
 ### Patch Changes
