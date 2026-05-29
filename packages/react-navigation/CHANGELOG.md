@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 1.4.0
+
+### Minor Changes
+
+- e82e636: Migrate to expo-router
+
 ## 1.3.0
 
 ### Minor Changes
