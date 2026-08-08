@@ -55,7 +55,14 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
   var disablePageAnimations = false
   var items: MutableList<TabInfo> = mutableListOf()
   private val iconSources: MutableMap<Int, ImageSource> = mutableMapOf()
-  private val drawableCache: MutableMap<ImageSource, Drawable> = mutableMapOf()
+  private val iconDimensions: MutableMap<Int, Pair<Double, Double>> = mutableMapOf()
+  private val drawableCache: MutableMap<IconCacheKey, Drawable> = mutableMapOf()
+
+  private data class IconCacheKey(
+    val source: ImageSource,
+    val widthDp: Double,
+    val heightDp: Double,
+  )
 
   private var isLayoutEnqueued = false
   private var selectedItem: String? = null
@@ -258,7 +265,9 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
 
         menuItem.icon = createAvatarDrawable(item, sizePx)
       } else if (iconSources.containsKey(index)) {
-        getDrawable(iconSources[index]!!, index, 0.0, 0.0) {
+        val dimensions = iconDimensions[index]
+
+        getDrawable(iconSources[index]!!, index, dimensions?.first ?: 0.0, dimensions?.second ?: 0.0) {
           menuItem.icon = it
         }
       }
@@ -359,6 +368,7 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
       val imageSource = ImageSource(context, uri)
 
       this.iconSources[idx] = imageSource
+      this.iconDimensions[idx] = widthDp to heightDp
 
       bottomNavigation.menu.findItem(idx)?.let { menuItem ->
         getDrawable(imageSource, idx, widthDp, heightDp) {
@@ -395,7 +405,9 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
     heightDp: Double = 0.0,
     onDrawableReady: (Drawable?) -> Unit
   ) {
-    drawableCache[imageSource]?.let {
+    val cacheKey = IconCacheKey(imageSource, widthDp, heightDp)
+
+    drawableCache[cacheKey]?.let {
       onDrawableReady(applyRenderingMode(it, index))
       return
     }
@@ -419,7 +431,7 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
       .target { drawable ->
         post {
           val stateDrawable = drawable.asDrawable(context.resources)
-          drawableCache[imageSource] = stateDrawable
+          drawableCache[cacheKey] = stateDrawable
           onDrawableReady(applyRenderingMode(stateDrawable, index))
         }
       }
