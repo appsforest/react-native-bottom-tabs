@@ -1,4 +1,4 @@
-import TabView from 'react-native-bottom-tabs';
+import TabView from '@appsforest/react-native-bottom-tabs';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 

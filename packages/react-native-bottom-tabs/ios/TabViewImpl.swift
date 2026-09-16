@@ -227,13 +227,30 @@ struct TabViewImpl: View {
 
       let tabActiveColor = tabData.activeTintColor ?? props.activeTintColor
       let assetIcon = props.icons[itemIndex]
+      let labeled = props.labeled && tabData.labelVisible
+
+      if tabData.isAvatar {
+        let avatar = UIImage.avatar(
+          from: assetIcon,
+          tabData: tabData,
+          fontFamily: props.fontFamily,
+          fontWeight: props.fontWeight
+        )
+        item.accessibilityLabel = tabData.title
+        item.title = labeled ? tabData.title : nil
+        item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
+        item.image = avatar
+        item.selectedImage = avatar
+        continue
+      }
+
       let icon = assetIcon ?? makeSFSymbolImage(named: tabData.sfSymbol)
       let focusedIcon =
         props.focusedIcons[itemIndex] ?? makeSFSymbolImage(named: tabData.focusedSfSymbol) ?? icon
       let preservesOriginalIconColors = preservesOriginalIconColors(tabData: tabData)
       let useBakedTintColors = shouldUseExperimentalBakedTintColors(props: props)
       let shouldRenderLabelIntoImage =
-        props.hasCustomTintColors && props.labeled && tabData.role != .search && icon != nil
+        props.hasCustomTintColors && labeled && tabData.role != .search && icon != nil
 
       item.accessibilityLabel = tabData.title
 
@@ -258,7 +275,7 @@ struct TabViewImpl: View {
         continue
       }
 
-      item.title = props.labeled ? tabData.title : nil
+      item.title = labeled ? tabData.title : nil
       item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
 
       if let icon {

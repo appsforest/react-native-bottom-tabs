@@ -1,6 +1,6 @@
 {
-  "name": "react-native-bottom-tabs",
-  "version": "1.4.0",
+  "name": "@appsforest/react-native-bottom-tabs",
+  "version": "1.4.1",
   "description": "Native Bottom Tabs for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -45,7 +45,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "modulePathIgnorePatterns": ["<rootDir>/lib/"]
+    "modulePathIgnorePatterns": [
+      "<rootDir>/lib/"
+    ]
   },
   "keywords": [
     "react-native",
@@ -63,7 +65,7 @@
   },
   "homepage": "https://github.com/callstack/react-native-bottom-tabs#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   },
   "devDependencies": {

@@ -24,6 +24,7 @@ import NativeTabView from './TabViewNativeComponent';
 import useLatestCallback from 'use-latest-callback';
 import type {
   AppleIcon,
+  AvatarIcon,
   BaseRoute,
   IconRenderingMode,
   LayoutDirection,
@@ -38,6 +39,34 @@ import {
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon?.sfSymbol;
+
+const isAvatarIcon = (icon: any): icon is AvatarIcon =>
+  icon?.avatar !== undefined;
+
+// Pass empty object for icons that are not provided to avoid index mismatch on native side.
+const resolveIconAsset = (
+  icon: ImageSource | AppleIcon | AvatarIcon | undefined | null
+): ImageSource => {
+  if (!icon || isAppleSymbol(icon)) {
+    return { uri: '' };
+  }
+
+  if (isAvatarIcon(icon)) {
+    return { uri: icon.avatar.uri ?? '' };
+  }
+
+  const source = icon as any;
+  const resolved = Image.resolveAssetSource(
+    typeof source?.uri === 'number' ? source.uri : source
+  );
+
+  // Explicit width/height override the default native icon size.
+  return {
+    ...resolved,
+    width: source?.width ?? 0,
+    height: source?.height ?? 0,
+  };
+};
 
 interface Props<Route extends BaseRoute> {
   /*
@@ -139,12 +168,16 @@ interface Props<Route extends BaseRoute> {
    */
   getPreventsDefault?: (props: { route: Route }) => boolean | undefined;
   /**
+   * Determines whether the tab label is visible, uses `route.labelVisible` by default.
+   */
+  getLabelVisible?: (props: { route: Route }) => boolean | undefined;
+  /**
    * Get icon for the tab, uses `route.focusedIcon` by default.
    */
   getIcon?: (props: {
     route: Route;
     focused: boolean;
-  }) => ImageSource | AppleIcon | undefined | null;
+  }) => ImageSource | AppleIcon | AvatarIcon | undefined | null;
 
   /**
    * Get the rendering mode for the tab icon, uses `route.iconRenderingMode` by default.
@@ -266,6 +299,7 @@ const TabView = <Route extends BaseRoute>({
     route.iconRenderingMode,
   getSceneStyle = ({ route }: { route: Route }) => route.style,
   getPreventsDefault = ({ route }: { route: Route }) => route.preventsDefault,
+  getLabelVisible = ({ route }: { route: Route }) => route.labelVisible,
   hapticFeedbackEnabled = false,
   // Android's native behavior is to show labels when there are less than 4 tabs. We leave it as undefined to use the platform default behavior.
   labeled = Platform.OS !== 'android' ? true : undefined,
@@ -341,6 +375,7 @@ const TabView = <Route extends BaseRoute>({
         const isSfSymbol = isAppleSymbol(icon);
         const focusedIcon = focusedIcons[index];
         const isFocusedSfSymbol = isAppleSymbol(focusedIcon);
+        const avatar = isAvatarIcon(icon) ? icon.avatar : undefined;
 
         if (Platform.OS === 'android' && isSfSymbol) {
           console.warn(
@@ -364,6 +399,14 @@ const TabView = <Route extends BaseRoute>({
           testID: getTestID?.({ route }),
           role: getRole?.({ route }),
           preventsDefault: getPreventsDefault?.({ route }),
+          labelVisible: getLabelVisible?.({ route }) ?? true,
+          avatarUri: avatar ? (avatar.uri ?? '') : undefined,
+          avatarInitials: avatar?.initials,
+          avatarBackgroundColor: avatar?.backgroundColor,
+          avatarSize: avatar ? (avatar.size ?? 26) : undefined,
+          avatarStrokeColor: avatar?.stroke?.color,
+          avatarStrokeWidth: avatar ? (avatar.stroke?.width ?? 1) : undefined,
+          avatarStrokeGap: avatar ? (avatar.stroke?.gap ?? 1) : undefined,
         };
       }),
     [
@@ -380,30 +423,17 @@ const TabView = <Route extends BaseRoute>({
       getTestID,
       getRole,
       getPreventsDefault,
+      getLabelVisible,
     ]
   );
 
   const resolvedIconAssets: ImageSource[] = React.useMemo(
-    () =>
-      // Pass empty object for icons that are not provided to avoid index mismatch on native side.
-      icons.map((icon) =>
-        icon && !isAppleSymbol(icon)
-          ? // @ts-expect-error: TODO: Migrate of deep imports
-            Image.resolveAssetSource(icon)
-          : { uri: '' }
-      ),
+    () => icons.map(resolveIconAsset),
     [icons]
   );
 
   const resolvedFocusedIconAssets: ImageSource[] = React.useMemo(
-    () =>
-      // Pass empty object for icons that are not provided to avoid index mismatch on native side.
-      focusedIcons.map((icon) =>
-        icon && !isAppleSymbol(icon)
-          ? // @ts-expect-error: TODO: Migrate of deep imports
-            Image.resolveAssetSource(icon)
-          : { uri: '' }
-      ),
+    () => focusedIcons.map(resolveIconAsset),
     [focusedIcons]
   );
 

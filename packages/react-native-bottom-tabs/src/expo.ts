@@ -54,5 +54,5 @@ const withMaterial3Theme: ConfigPlugin<ConfigProps> = (config, options) => {
 
 export default createRunOncePlugin(
   withMaterial3Theme,
-  'react-native-bottom-tabs'
+  '@appsforest/react-native-bottom-tabs'
 );

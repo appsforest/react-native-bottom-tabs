@@ -6,19 +6,34 @@ struct TabItem: View {
   var sfSymbol: String?
   var labeled: Bool?
   var iconRenderingMode: String?
+  var tabData: TabInfo?
+  var fontFamily: String?
+  var fontWeight: String?
 
   var body: some View {
-    if let icon {
-#if os(macOS)
-      Image(nsImage: icon)
-#else
+#if !os(macOS)
+    if let tabData, tabData.isAvatar {
+      Image(uiImage: UIImage.avatar(
+        from: icon,
+        tabData: tabData,
+        fontFamily: fontFamily,
+        fontWeight: fontWeight
+      ))
+    } else if let icon {
       Image(uiImage: renderedIcon(icon))
-#endif
     } else if let sfSymbol, !sfSymbol.isEmpty {
       Image(systemName: sfSymbol)
         .noneSymbolVariant()
     }
-    if labeled != false {
+#else
+    if let icon {
+      Image(nsImage: icon)
+    } else if let sfSymbol, !sfSymbol.isEmpty {
+      Image(systemName: sfSymbol)
+        .noneSymbolVariant()
+    }
+#endif
+    if labeled != false && tabData?.labelVisible != false {
       Text(title ?? "")
     }
   }

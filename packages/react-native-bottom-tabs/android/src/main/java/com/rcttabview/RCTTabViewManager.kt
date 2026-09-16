@@ -26,8 +26,18 @@ data class TabInfo(
   val activeTintColor: Int?,
   val iconRenderingMode: String?,
   val hidden: Boolean,
-  val testID: String?
-)
+  val testID: String?,
+  val labelVisible: Boolean = true,
+  val avatarUri: String? = null,
+  val avatarInitials: String? = null,
+  val avatarBackgroundColor: String? = null,
+  val avatarSize: Double = 26.0,
+  val avatarStrokeColor: String? = null,
+  val avatarStrokeGap: Double = 1.0,
+  val avatarStrokeWidth: Double = 1.0
+) {
+  val isAvatar: Boolean get() = avatarUri != null || avatarInitials != null
+}
 
 
 @ReactModule(name = RCTTabViewManager.NAME)
@@ -107,7 +117,15 @@ class RCTTabViewManager(context: ReactApplicationContext) :
                 activeTintColor = if (item.hasKey("activeTintColor")) item.getInt("activeTintColor") else null,
                 iconRenderingMode = if (item.hasKey("iconRenderingMode")) item.getString("iconRenderingMode") else null,
                 hidden = if (item.hasKey("hidden")) item.getBoolean("hidden") else false,
-                testID = item.getString("testID")
+                testID = item.getString("testID"),
+                labelVisible = if (item.hasKey("labelVisible")) item.getBoolean("labelVisible") else true,
+                avatarUri = if (item.hasKey("avatarUri")) item.getString("avatarUri")?.takeIf { it.isNotEmpty() } else null,
+                avatarInitials = if (item.hasKey("avatarInitials")) item.getString("avatarInitials")?.takeIf { it.isNotEmpty() } else null,
+                avatarBackgroundColor = if (item.hasKey("avatarBackgroundColor")) item.getString("avatarBackgroundColor") else null,
+                avatarSize = if (item.hasKey("avatarSize")) item.getDouble("avatarSize") else 26.0,
+                avatarStrokeColor = if (item.hasKey("avatarStrokeColor")) item.getString("avatarStrokeColor") else null,
+                avatarStrokeGap = if (item.hasKey("avatarStrokeGap")) item.getDouble("avatarStrokeGap") else 1.0,
+                avatarStrokeWidth = if (item.hasKey("avatarStrokeWidth")) item.getDouble("avatarStrokeWidth") else 1.0,
               )
             )
         }

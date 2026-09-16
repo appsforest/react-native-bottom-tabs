@@ -15,6 +15,18 @@ public final class TabInfo: NSObject {
   public let testID: String?
   public let role: TabBarRole?
   public let preventsDefault: Bool
+  public let labelVisible: Bool
+  public let avatarUri: String?
+  public let avatarInitials: String?
+  public let avatarBackgroundColor: String?
+  public let avatarSize: CGFloat
+  public let avatarStrokeColor: String?
+  public let avatarStrokeGap: CGFloat
+  public let avatarStrokeWidth: CGFloat
+
+  public var isAvatar: Bool {
+    avatarUri != nil || avatarInitials != nil
+  }
 
   public init(
     key: String,
@@ -27,7 +39,15 @@ public final class TabInfo: NSObject {
     hidden: Bool,
     testID: String?,
     role: String?,
-    preventsDefault: Bool = false
+    preventsDefault: Bool = false,
+    labelVisible: Bool = true,
+    avatarUri: String? = nil,
+    avatarInitials: String? = nil,
+    avatarBackgroundColor: String? = nil,
+    avatarSize: CGFloat = 26,
+    avatarStrokeColor: String? = nil,
+    avatarStrokeGap: CGFloat = 1,
+    avatarStrokeWidth: CGFloat = 1
   ) {
     self.key = key
     self.title = title
@@ -40,6 +60,14 @@ public final class TabInfo: NSObject {
     self.testID = testID
     self.role = TabBarRole(rawValue: role ?? "")
     self.preventsDefault = preventsDefault
+    self.labelVisible = labelVisible
+    self.avatarUri = avatarUri
+    self.avatarInitials = avatarInitials
+    self.avatarBackgroundColor = avatarBackgroundColor
+    self.avatarSize = avatarSize
+    self.avatarStrokeColor = avatarStrokeColor
+    self.avatarStrokeGap = avatarStrokeGap
+    self.avatarStrokeWidth = avatarStrokeWidth
     super.init()
   }
 }
@@ -280,7 +308,15 @@ public final class TabInfo: NSObject {
             guard let image else { return }
             DispatchQueue.main.async { [weak self] in
               guard let self else { return }
-              let icon = image.resizeImageTo(size: iconSize)
+              let icon: PlatformImage?
+              if props.items[safe: index]?.isAvatar == true {
+                // Avatars are cropped and sized when rendering the tab item.
+                icon = image
+              } else if imageSource.size.width > 0 && imageSource.size.height > 0 {
+                icon = image.resizeImageTo(size: imageSource.size)
+              } else {
+                icon = image.resizeImageTo(size: iconSize)
+              }
               #if os(iOS)
                 if props.experimentalBakedTintColors {
                   if focused {

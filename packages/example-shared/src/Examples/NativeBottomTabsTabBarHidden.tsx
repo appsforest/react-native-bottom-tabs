@@ -1,4 +1,4 @@
-import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@appsforest/react-navigation';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 

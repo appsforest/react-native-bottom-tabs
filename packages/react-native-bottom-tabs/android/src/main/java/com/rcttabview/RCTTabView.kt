@@ -28,6 +28,7 @@ import androidx.core.view.forEachIndexed
 import coil3.ImageLoader
 import coil3.asDrawable
 import coil3.request.ImageRequest
+import coil3.request.allowHardware
 import coil3.svg.SvgDecoder
 import coil3.size.Precision
 import coil3.size.Size as CoilSize
@@ -59,7 +60,14 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
   var disablePageAnimations = false
   var items: MutableList<TabInfo> = mutableListOf()
   private val iconSources: MutableMap<Int, ImageSource> = mutableMapOf()
-  private val drawableCache: MutableMap<ImageSource, Drawable> = mutableMapOf()
+  private val iconDimensions: MutableMap<Int, Pair<Double, Double>> = mutableMapOf()
+  private val drawableCache: MutableMap<IconCacheKey, Drawable> = mutableMapOf()
+
+  private data class IconCacheKey(
+    val source: ImageSource,
+    val widthDp: Double,
+    val heightDp: Double,
+  )
 
   private var isLayoutEnqueued = false
   private var selectedItem: String? = null
@@ -246,17 +254,22 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
     this.items = items
     items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
-      if (item.title !== menuItem.title) {
-        menuItem.title = item.title
+      val title = if (item.labelVisible) item.title else ""
+      if (title != menuItem.title) {
+        menuItem.title = title
       }
 
       menuItem.isVisible = !item.hidden
       updateIconTintMode(menuItem, item)
-      if (iconSources.containsKey(index)) {
-        getDrawable(iconSources[index]!!) {
+      val iconSource = iconSources[index]
+      if (iconSource != null) {
+        val (widthDp, heightDp) = iconDimensions[index] ?: (0.0 to 0.0)
+        getDrawable(iconSource, index, widthDp, heightDp) {
           menuItem.icon = it
           updateIconTintMode(menuItem, item)
         }
+      } else if (item.avatarInitials != null) {
+        menuItem.icon = createAvatarDrawable(item, bottomNavigation.itemIconSize)
       }
 
       if (item.badge?.isNotEmpty() == true) {
@@ -293,6 +306,27 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
     post {
       updateTextAppearance()
       updateTintColors()
+      expandUnlabeledIcons()
+    }
+  }
+
+  // Let icons of tabs without a label use the whole item area.
+  private fun expandUnlabeledIcons() {
+    val menuView = bottomNavigation.getChildAt(0) as? ViewGroup ?: return
+
+    for (i in 0 until menuView.childCount) {
+      val item = items.getOrNull(i) ?: continue
+      if (item.labelVisible) continue
+
+      val iconView = menuView.getChildAt(i)
+        ?.findViewById<android.widget.ImageView>(com.google.android.material.R.id.navigation_bar_item_icon_view)
+        ?: continue
+
+      iconView.layoutParams = iconView.layoutParams?.apply {
+        height = ViewGroup.LayoutParams.MATCH_PARENT
+        width = ViewGroup.LayoutParams.MATCH_PARENT
+      }
+      iconView.requestLayout()
     }
   }
 
@@ -321,7 +355,7 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
   private fun updateIconTintMode(menuItem: MenuItem, item: TabInfo) {
     MenuItemCompat.setIconTintMode(
       menuItem,
-      if (item.iconRenderingMode == "original") PorterDuff.Mode.DST else null
+      if (item.iconRenderingMode == "original" || item.isAvatar) PorterDuff.Mode.DST else null
     )
   }
 
@@ -334,15 +368,24 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
       val source = icons.getMap(idx)
       val uri = source?.getString("uri")
       if (uri.isNullOrEmpty()) {
+        val item = items.getOrNull(idx)
+        if (item?.avatarInitials != null) {
+          bottomNavigation.menu.findItem(idx)?.icon =
+            createAvatarDrawable(item, bottomNavigation.itemIconSize)
+        }
         continue
       }
 
+      // Explicit width/height in dp, 0 means the default icon size.
+      val widthDp = if (source.hasKey("width")) source.getDouble("width") else 0.0
+      val heightDp = if (source.hasKey("height")) source.getDouble("height") else 0.0
       val imageSource = ImageSource(context, uri)
       this.iconSources[idx] = imageSource
+      this.iconDimensions[idx] = widthDp to heightDp
 
       // Update existing item if exists.
       bottomNavigation.menu.findItem(idx)?.let { menuItem ->
-        getDrawable(imageSource) {
+        getDrawable(imageSource, idx, widthDp, heightDp) {
           menuItem.icon = it
           items.getOrNull(idx)?.let { item ->
             updateIconTintMode(menuItem, item)
@@ -372,22 +415,32 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
   }
 
   @SuppressLint("CheckResult")
-  private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
-    drawableCache[imageSource]?.let {
-      onDrawableReady(it)
+  private fun getDrawable(
+    imageSource: ImageSource,
+    index: Int,
+    widthDp: Double,
+    heightDp: Double,
+    onDrawableReady: (Drawable?) -> Unit
+  ) {
+    val cacheKey = IconCacheKey(imageSource, widthDp, heightDp)
+    drawableCache[cacheKey]?.let {
+      onDrawableReady(applyAvatar(it, index))
       return
     }
-    val iconSizePx = bottomNavigation.itemIconSize
+    val defaultSizePx = bottomNavigation.itemIconSize
+    val widthPx = if (widthDp > 0) dpToPx(widthDp).toInt() else defaultSizePx
+    val heightPx = if (heightDp > 0) dpToPx(heightDp).toInt() else defaultSizePx
     val request = ImageRequest.Builder(context)
       .data(imageSource.getUri(context))
-      .size(CoilSize(iconSizePx, iconSizePx))
+      .size(CoilSize(widthPx, heightPx))
       .scale(Scale.FILL)
       .precision(Precision.EXACT)
+      .allowHardware(false)
       .target { drawable ->
         post {
           val stateDrawable = drawable.asDrawable(context.resources)
-          drawableCache[imageSource] = stateDrawable
-          onDrawableReady(stateDrawable)
+          drawableCache[cacheKey] = stateDrawable
+          onDrawableReady(applyAvatar(stateDrawable, index))
         }
       }
       .listener(
@@ -398,6 +451,193 @@ class ReactBottomNavigationView(context: Context) : LinearLayout(context) {
       .build()
 
     imageLoader.enqueue(request)
+  }
+
+  private fun dpToPx(dp: Double): Float =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), resources.displayMetrics)
+
+  private fun applyAvatar(drawable: Drawable, index: Int): Drawable {
+    val item = items.getOrNull(index)?.takeIf { it.avatarUri != null } ?: return drawable
+    val bitmap = createCircularBitmap(drawableToBitmap(drawable), bottomNavigation.itemIconSize, item)
+    return androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+      .create(context.resources, bitmap)
+      .mutate()
+      .apply { setTintList(null) }
+  }
+
+  private fun drawableToBitmap(drawable: Drawable): android.graphics.Bitmap {
+    if (drawable is android.graphics.drawable.BitmapDrawable) return drawable.bitmap
+
+    val bitmap = android.graphics.Bitmap.createBitmap(
+      drawable.intrinsicWidth.takeIf { it > 0 } ?: bottomNavigation.itemIconSize,
+      drawable.intrinsicHeight.takeIf { it > 0 } ?: bottomNavigation.itemIconSize,
+      android.graphics.Bitmap.Config.ARGB_8888
+    )
+
+    val canvas = android.graphics.Canvas(bitmap)
+
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
+    drawable.draw(canvas)
+
+    return bitmap
+  }
+
+  private fun createCircularBitmap(
+    source: android.graphics.Bitmap,
+    sizePx: Int,
+    item: TabInfo
+  ): android.graphics.Bitmap {
+    val strokeColor = item.avatarStrokeColor?.let { parseHexColor(it) }
+
+    val strokeWidthPx = if (strokeColor != null) TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP,
+      item.avatarStrokeWidth.toFloat(),
+      context.resources.displayMetrics
+    ) else 0f
+
+    val gapPx = if (strokeColor != null) TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP, item.avatarStrokeGap.toFloat(), context.resources.displayMetrics
+    ) else 0f
+
+    val padding = if (strokeColor != null) gapPx + strokeWidthPx else 0f
+    val totalSizePx = (sizePx + padding * 2).toInt()
+
+    val output = android.graphics.Bitmap.createBitmap(
+      totalSizePx,
+      totalSizePx,
+      android.graphics.Bitmap.Config.ARGB_8888
+    )
+
+    val canvas = android.graphics.Canvas(output)
+    val paint = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG)
+    val radius = sizePx / 2f
+
+    // Avatar rect starts after padding
+    val avatarLeft = padding
+    val avatarTop = padding
+
+    // Save and clip to circle within padded area
+    canvas.save()
+
+    val path = android.graphics.Path()
+
+    path.addCircle(
+      avatarLeft + radius,
+      avatarTop + radius,
+      radius,
+      android.graphics.Path.Direction.CW
+    )
+
+    canvas.clipPath(path)
+
+    // Draw scaled source image into avatar rect
+    val scaledBitmap = android.graphics.Bitmap.createScaledBitmap(source, sizePx, sizePx, true)
+    canvas.drawBitmap(scaledBitmap, avatarLeft, avatarTop, paint)
+    canvas.restore()
+
+    // Stroke — drawn outside the avatar circle, inside the padding
+    if (strokeColor != null) {
+      paint.color = strokeColor
+      paint.style = android.graphics.Paint.Style.STROKE
+      paint.strokeWidth = strokeWidthPx
+
+      val strokeRadius = radius + gapPx + strokeWidthPx / 2f
+
+      canvas.drawCircle(avatarLeft + radius, avatarTop + radius, strokeRadius, paint)
+    }
+
+    return output
+  }
+
+  private fun createAvatarDrawable(item: TabInfo, sizePx: Int): Drawable {
+    val bitmap =
+      android.graphics.Bitmap.createBitmap(sizePx, sizePx, android.graphics.Bitmap.Config.ARGB_8888)
+
+    val canvas = android.graphics.Canvas(bitmap)
+    val paint = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG)
+    val radius = sizePx / 2f
+
+    // Save before clipping so we can restore for stroke
+    canvas.save()
+
+    // Clip to circle
+    val path = android.graphics.Path()
+
+    path.addCircle(radius, radius, radius, android.graphics.Path.Direction.CW)
+    canvas.clipPath(path)
+
+    // Background
+    val bgColor =
+      item.avatarBackgroundColor?.let { parseHexColor(it) } ?: android.graphics.Color.GRAY
+
+    paint.color = bgColor
+    paint.style = android.graphics.Paint.Style.FILL
+    canvas.drawCircle(radius, radius, radius, paint)
+
+    // Initials
+    val initials = item.avatarInitials ?: ""
+
+    paint.color = android.graphics.Color.WHITE
+    paint.textAlign = android.graphics.Paint.Align.CENTER
+    paint.textSize = sizePx * 0.42f
+
+    paint.typeface = if (fontFamily != null || fontWeight != null) {
+      ReactFontManager.getInstance().getTypeface(
+        fontFamily ?: "",
+        Utils.getTypefaceStyle(fontWeight),
+        context.assets
+      )
+    } else {
+      android.graphics.Typeface.create(
+        android.graphics.Typeface.DEFAULT,
+        android.graphics.Typeface.BOLD
+      )
+    }
+
+    val textBounds = android.graphics.Rect()
+
+    paint.getTextBounds(initials, 0, initials.length, textBounds)
+    canvas.drawText(initials, radius, radius - textBounds.exactCenterY(), paint)
+
+    // Restore clip so stroke draws outside the circle boundary
+    canvas.restore()
+
+    // Stroke
+    val strokeColor = item.avatarStrokeColor?.let { parseHexColor(it) }
+
+    if (strokeColor != null) {
+      val strokeWidthPx = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        item.avatarStrokeWidth.toFloat(),
+        context.resources.displayMetrics
+      )
+
+      val gapPx = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        item.avatarStrokeGap.toFloat(),
+        context.resources.displayMetrics
+      )
+
+      paint.color = strokeColor
+      paint.style = android.graphics.Paint.Style.STROKE
+      paint.strokeWidth = strokeWidthPx
+      canvas.drawCircle(radius, radius, radius - gapPx - strokeWidthPx / 2f, paint)
+    }
+
+    val roundedDrawable =
+      androidx.core.graphics.drawable.RoundedBitmapDrawableFactory.create(context.resources, bitmap)
+
+    roundedDrawable.isCircular = true
+
+    return roundedDrawable.mutate().apply { setTintList(null) }
+  }
+
+  private fun parseHexColor(hex: String): Int? {
+    return try {
+      android.graphics.Color.parseColor(if (hex.startsWith("#")) hex else "#$hex")
+    } catch (e: Exception) {
+      null
+    }
   }
 
   fun setBarTintColor(color: Int?) {

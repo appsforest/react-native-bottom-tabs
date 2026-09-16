@@ -21,11 +21,23 @@ NSObject *RNCCreateBottomAccessoryProvider(id<RNCBottomAccessoryProviderDelegate
                     hidden:(BOOL)hidden
                     testID:(NSString *)testID
                       role:(NSString *)role
-           preventsDefault:(BOOL)preventsDefault {
+           preventsDefault:(BOOL)preventsDefault
+              labelVisible:(BOOL)labelVisible
+                 avatarUri:(NSString *)avatarUri
+            avatarInitials:(NSString *)avatarInitials
+     avatarBackgroundColor:(NSString *)avatarBackgroundColor
+                avatarSize:(CGFloat)avatarSize
+         avatarStrokeColor:(NSString *)avatarStrokeColor
+           avatarStrokeGap:(CGFloat)avatarStrokeGap
+         avatarStrokeWidth:(CGFloat)avatarStrokeWidth {
   return [[TabInfo alloc] initWithKey:key title:title badge:badge sfSymbol:sfSymbol
                     focusedSfSymbol:focusedSfSymbol activeTintColor:activeTintColor
                   iconRenderingMode:iconRenderingMode hidden:hidden testID:testID
-                               role:role preventsDefault:preventsDefault];
+                               role:role preventsDefault:preventsDefault
+                       labelVisible:labelVisible avatarUri:avatarUri
+                     avatarInitials:avatarInitials avatarBackgroundColor:avatarBackgroundColor
+                         avatarSize:avatarSize avatarStrokeColor:avatarStrokeColor
+                    avatarStrokeGap:avatarStrokeGap avatarStrokeWidth:avatarStrokeWidth];
 }
 @end
 #endif

@@ -36,6 +36,14 @@ export type TabViewItems = ReadonlyArray<{
   testID?: string;
   role?: string;
   preventsDefault?: boolean;
+  labelVisible?: boolean;
+  avatarUri?: string;
+  avatarInitials?: string;
+  avatarBackgroundColor?: string;
+  avatarSize?: Double;
+  avatarStrokeColor?: string;
+  avatarStrokeGap?: Double;
+  avatarStrokeWidth?: Double;
 }>;
 
 export interface TabViewProps extends ViewProps {

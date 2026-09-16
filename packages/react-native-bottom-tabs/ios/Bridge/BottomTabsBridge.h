@@ -57,6 +57,14 @@ FOUNDATION_EXPORT NSObject *RNCCreateBottomAccessoryProvider(id<RNCBottomAccesso
                     hidden:(BOOL)hidden
                     testID:(NSString *)testID
                       role:(NSString *)role
-           preventsDefault:(BOOL)preventsDefault;
+           preventsDefault:(BOOL)preventsDefault
+              labelVisible:(BOOL)labelVisible
+                 avatarUri:(NSString *)avatarUri
+            avatarInitials:(NSString *)avatarInitials
+     avatarBackgroundColor:(NSString *)avatarBackgroundColor
+                avatarSize:(CGFloat)avatarSize
+         avatarStrokeColor:(NSString *)avatarStrokeColor
+           avatarStrokeGap:(CGFloat)avatarStrokeGap
+         avatarStrokeWidth:(CGFloat)avatarStrokeWidth;
 @end
 #endif

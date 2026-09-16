@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { BottomTabBarHeightContext } from 'react-native-bottom-tabs';
+import { BottomTabBarHeightContext } from '@appsforest/react-native-bottom-tabs';
 import { MusicControl } from '../Components/MusicControl';
 
 type Item = { name: string; number: number };

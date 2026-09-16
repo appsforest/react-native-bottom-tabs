@@ -11,7 +11,7 @@ import {
   type TypedNavigator,
   useNavigationBuilder,
   useTheme,
-} from '@react-navigation/native';
+} from 'expo-router/react-navigation';
 import Color from 'color';
 
 import type {

@@ -6,14 +6,15 @@ import type {
   RouteProp,
   TabActionHelpers,
   TabNavigationState,
-} from '@react-navigation/native';
+} from 'expo-router/react-navigation';
 import type { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
-import type TabView from 'react-native-bottom-tabs';
+import type TabView from '@appsforest/react-native-bottom-tabs';
 import type {
   AppleIcon,
+  AvatarIcon,
   IconRenderingMode,
   TabRole,
-} from 'react-native-bottom-tabs';
+} from '@appsforest/react-native-bottom-tabs';
 
 export type NativeBottomTabNavigationEventMap = {
   /**
@@ -67,9 +68,11 @@ export type NativeBottomTabNavigationOptions = {
   tabBarLabel?: string;
 
   /**
-   * Function that given { focused: boolean } returns ImageSource or AppleIcon to display in the navigation bar.
+   * Function that given { focused: boolean } returns ImageSource, AppleIcon or AvatarIcon to display in the navigation bar.
    */
-  tabBarIcon?: (props: { focused: boolean }) => ImageSourcePropType | AppleIcon;
+  tabBarIcon?: (props: {
+    focused: boolean;
+  }) => ImageSourcePropType | AppleIcon | AvatarIcon;
 
   /**
    * Rendering mode for the tab icon. Use `original` to preserve multicolor image icons.
@@ -129,6 +132,11 @@ export type NativeBottomTabNavigationOptions = {
    * Whether to prevent default action of the tab. Defaults to `false`.
    */
   preventsDefault?: boolean;
+
+  /**
+   * Whether the tab label is visible. Defaults to `true`.
+   */
+  tabBarLabelVisible?: boolean;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<
@@ -172,6 +180,7 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'getFreezeOnBlur'
     | 'getSceneStyle'
     | 'getPreventsDefault'
+    | 'getLabelVisible'
   >
 > & {
   tabBar?: (props: BottomTabBarProps) => React.ReactNode;

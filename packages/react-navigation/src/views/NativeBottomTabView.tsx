@@ -3,13 +3,13 @@ import {
   type TabNavigationState,
   type Route,
   CommonActions,
-} from '@react-navigation/native';
+} from 'expo-router/react-navigation';
 import type {
   NativeBottomTabDescriptorMap,
   NativeBottomTabNavigationConfig,
   NativeBottomTabNavigationHelpers,
 } from '../types';
-import TabView from 'react-native-bottom-tabs';
+import TabView from '@appsforest/react-native-bottom-tabs';
 
 type Props = NativeBottomTabNavigationConfig & {
   state: TabNavigationState<ParamListBase>;
@@ -91,6 +91,9 @@ export default function NativeBottomTabView({
       }}
       getPreventsDefault={({ route }) =>
         descriptors[route.key]?.options.preventsDefault
+      }
+      getLabelVisible={({ route }) =>
+        descriptors[route.key]?.options.tabBarLabelVisible
       }
       onIndexChange={(index) => {
         const focused = index === state.index;

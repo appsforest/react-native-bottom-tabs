@@ -1,4 +1,4 @@
-# `@bottom-tabs/react-navigation`
+# `@appsforest/react-navigation`
 
 React Navigation integration for `react-native-bottom-tabs`.
 

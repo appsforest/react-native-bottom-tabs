@@ -54,7 +54,15 @@ bool operator==(const RNCTabViewItemsStruct& lhs, const RNCTabViewItemsStruct& r
   lhs.hidden == rhs.hidden &&
   lhs.testID == rhs.testID &&
   lhs.role == rhs.role &&
-  lhs.preventsDefault == rhs.preventsDefault;
+  lhs.preventsDefault == rhs.preventsDefault &&
+  lhs.labelVisible == rhs.labelVisible &&
+  lhs.avatarUri == rhs.avatarUri &&
+  lhs.avatarInitials == rhs.avatarInitials &&
+  lhs.avatarBackgroundColor == rhs.avatarBackgroundColor &&
+  lhs.avatarSize == rhs.avatarSize &&
+  lhs.avatarStrokeColor == rhs.avatarStrokeColor &&
+  lhs.avatarStrokeGap == rhs.avatarStrokeGap &&
+  lhs.avatarStrokeWidth == rhs.avatarStrokeWidth;
 }
 
 bool operator!=(const RNCTabViewItemsStruct& lhs, const RNCTabViewItemsStruct& rhs) {
@@ -242,6 +250,14 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
                                          testID:RCTNSStringFromStringNilIfEmpty(item.testID)
                                          role:RCTNSStringFromStringNilIfEmpty(item.role)
                               preventsDefault:item.preventsDefault
+                                 labelVisible:item.labelVisible
+                                    avatarUri:RCTNSStringFromStringNilIfEmpty(item.avatarUri)
+                               avatarInitials:RCTNSStringFromStringNilIfEmpty(item.avatarInitials)
+                        avatarBackgroundColor:RCTNSStringFromStringNilIfEmpty(item.avatarBackgroundColor)
+                                   avatarSize:item.avatarSize > 0 ? item.avatarSize : 26
+                            avatarStrokeColor:RCTNSStringFromStringNilIfEmpty(item.avatarStrokeColor)
+                              avatarStrokeGap:item.avatarStrokeGap > 0 ? item.avatarStrokeGap : 1
+                            avatarStrokeWidth:item.avatarStrokeWidth > 0 ? item.avatarStrokeWidth : 1
     ];
 
     [result addObject:tabInfo];

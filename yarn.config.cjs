@@ -1,7 +1,7 @@
 // Shared runtime dependencies stay explicit in each example's package.json.
 // Edit versions here, then run yarn constraints --fix and yarn install.
 const versions = {
-  '@bottom-tabs/react-navigation': '*',
+  '@appsforest/react-navigation': '*',
   '@react-navigation/bottom-tabs': '^7.15.9',
   '@react-navigation/devtools': '^7.0.44',
   '@react-navigation/native': '^7.3.0',
@@ -10,7 +10,7 @@ const versions = {
   'color': '^5.0.0',
   'react': '^19.2.3',
   'react-native': '^0.87.1',
-  'react-native-bottom-tabs': '*',
+  '@appsforest/react-native-bottom-tabs': '*',
   'react-native-edge-to-edge': '^1.7.0',
   'react-native-gesture-handler': '^3.2.1',
   'react-native-paper': '^5.14.5',
