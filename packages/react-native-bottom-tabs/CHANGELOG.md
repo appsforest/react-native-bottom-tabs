@@ -1,5 +1,17 @@
 # react-native-bottom-tabs
 
+## 1.5.0
+
+### Minor Changes
+
+- 095800a: Sync with upstream. `tabBarIconRenderingMode` now accepts `'automatic' | 'original'`: replace `'alwaysOriginal'` with `'original'`, `'alwaysTemplate'` was removed.
+- 85e14d7: Add iOS Swift Package Manager support
+
+### Patch Changes
+
+- 251bc1e: Fix Android build with AGP 9 built-in Kotlin: skip applying the `kotlin-android` plugin when AGP has already registered the `kotlin` extension
+- 6b8e865: Add support for React Native 0.87
+
 ## 1.4.0
 
 ### Minor Changes

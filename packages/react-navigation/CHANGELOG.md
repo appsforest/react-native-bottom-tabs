@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 1.5.0
+
+### Minor Changes
+
+- 095800a: Sync with upstream. `tabBarIconRenderingMode` now accepts `'automatic' | 'original'`: replace `'alwaysOriginal'` with `'original'`, `'alwaysTemplate'` was removed.
+
 ## 1.4.0
 
 ### Minor Changes

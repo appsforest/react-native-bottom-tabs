@@ -1,5 +1,21 @@
 # @bottom-tabs/expo-template
 
+## 1.1.4
+
+### Patch Changes
+
+- 1283040: Render tab bar icons on Android, and apply the template's own colors to the tab bar
+- 67c02ec: Target development builds instead of Expo Go, and add `ios.bundleIdentifier` and `android.package` placeholders
+- cc8ce1f: Replace react-test-renderer with React Native Testing Library, and add lint and typecheck scripts
+- 34f7117: Align dependencies with Expo SDK 54, drop unused packages, and fix the template's TypeScript errors
+- dd72e8b: Add the missing test-renderer dependency required by React Native Testing Library, using the version compatible with React 19.1.
+- Updated dependencies [251bc1e]
+- Updated dependencies [095800a]
+- Updated dependencies [85e14d7]
+- Updated dependencies [6b8e865]
+  - @appsforest/react-native-bottom-tabs@1.5.0
+  - @appsforest/react-navigation@1.5.0
+
 ## 1.1.3
 
 ### Patch Changes
